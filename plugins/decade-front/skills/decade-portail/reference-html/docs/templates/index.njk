@@ -1,0 +1,42 @@
+{% extends "layout.njk" %}
+{% block content %}
+<header class="doc-hero">
+  
+  <h1>Maquettes HTML / SCSS / JS modulaires</h1>
+  <p class="doc-lead">{{ site.pages.length - 1 }} pages et {{ components.length }} composants documentés, construits à partir du design system {{ site.name }} : mêmes classes <code>is-</code>, mêmes tokens, mêmes comportements, en HTML statique (Nunjucks), SCSS et JavaScript natif, sans framework.</p>
+  <div class="doc-meta"><a class="doc-btn doc-btn--primary" href="pages.html">Voir les pages</a><a class="doc-btn" href="architecture.html">Comprendre l’architecture</a></div>
+</header>
+
+<section class="doc-section">
+  <h2>Démarrer</h2>
+  <p>Node.js 20.11 ou plus (22 LTS recommandé, fichier .nvmrc fourni). Les pages compilées sont déjà dans <code>dist/</code> : ouvrez <code>dist/index.html</code> (page d’accès à toutes les maquettes et à la doc) dans un navigateur pour les consulter sans rien installer.</p>
+  <pre class="doc-code"><code>npm install
+npm run dev      # compile, surveille src/ et docs/, sert http://localhost:3000
+npm run build    # compile dans dist/ (CSS et JS minifiés)
+npm run check    # vérifie que les macros produisent le même HTML que le design system</code></pre>
+</section>
+
+<section class="doc-section">
+  <h2>Ce que contient le projet</h2>
+  <div class="doc-cards">
+    <a class="doc-card" href="pages.html"><strong>{{ site.pages.length - 1 }} pages</strong><span>Accueil, liste, fiche produit, panier, livraison, paiement, confirmation, connexion, création de compte, 10 pages d’espace client, store locator, fiche magasin, landing opération.</span></a>
+    <a class="doc-card" href="c-product-card.html"><strong>{{ components.length }} composants</strong><span>Exemple vivant, code Nunjucks, HTML produit, fichiers SCSS et module JS de chaque composant.</span></a>
+    <a class="doc-card" href="tokens.html"><strong>Tokens</strong><span>Couleurs clair / sombre, typographie Open Sans, espacements, rayons, ombres, z-index, points de rupture.</span></a>
+    <a class="doc-card" href="javascript.html"><strong>{{ jsModules.length }} modules JS</strong><span>Amélioration progressive : chaque module s’accroche à son balisage, sans dépendance hors Leaflet.</span></a>
+  </div>
+</section>
+
+<section class="doc-section">
+  <h2>Règles à retenir</h2>
+  <ul class="doc-list">
+    <li><strong>Casse</strong> : aucune majuscule de style — titres, boutons, badges et libellés en casse de phrase (règle unique dans <code>refine/_type.scss</code>).</li>
+    <li><strong>Titres</strong> : Barlow Condensed 700 / 800 (auto-hébergée, <code>--font-display</code>) ; texte en Open Sans.</li>
+    <li><strong>Boutons</strong> arrondis (<code>radius-pill</code>), bordure 1px, texte en minuscules avec majuscule initiale, verbe en premier.</li>
+    <li><strong>Formulaires</strong> : labels flottants, icône Lucide à gauche, aide en <em>InfoTip</em>, erreurs sous le champ qui disent quoi faire.</li>
+    <li><strong>Couches de choix</strong> (magasin, adresse, point relais, ajout rapide, filtres mobiles, mini-panier) : <em>drawer</em> à droite.</li>
+    <li><strong>Cartes produit</strong> : coloris en vignettes produit (jamais en pastilles de couleur), bouton « Ajout rapide » en bas à droite de l’image, même hauteur dans les sliders.</li>
+    <li><strong>Icônes</strong> : Lucide uniquement, via <code>{{ "{{ icon('nom') }}" }}</code> ou <code>icon()</code> en JS.</li>
+    <li><strong>Carte des magasins</strong> : Leaflet avec les repères du design system ; fournisseur de tuiles dans <code>src/js/config.js</code>.</li>
+  </ul>
+</section>
+{% endblock %}

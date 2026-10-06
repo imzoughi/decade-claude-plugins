@@ -1,0 +1,2 @@
+{ "pages": ["accueil", "liste-produits", "fiche-produit", "panier", "livraison", "paiement", "confirmation", "connexion", "compte", "magasins"],
+  "couches": ["menu-mobile", "filtres", "ajout-rapide", "choix-magasin", "choix-point-relais"] }

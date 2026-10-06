@@ -1,0 +1,24 @@
+{% extends "layout.njk" %}
+{% block content %}
+<header class="doc-hero doc-hero--s"><h1>SCSS</h1>
+<p class="doc-lead">Dart Sass avec <code>@use</code>. Chaque partiel commence par <code>@use '../abstracts' as *;</code> pour accéder aux maps, mixins et points de rupture, sans dupliquer de CSS. Les partiels des composants viennent du design system et gardent son ordre dans <code>main.scss</code>.</p>
+<p class="doc-lead">La couche <code>refine/</code> est chargée en dernier : elle affine rythme, espacements, surfaces du navigateur et visuels de remplacement sans toucher à l’identité (couleurs, Open Sans, boutons pilule 1px, Lucide). Retirez <code>@use 'refine';</code> de <code>main.scss</code> pour revenir au rendu brut du design system.</p></header>
+<section class="doc-section">
+<pre class="doc-code"><code>// Exemple de partiel
+@use '../abstracts' as *;
+
+.is-mon-bloc {
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+  &:focus-visible { @include focus-ring; }
+  @include bp-down(md) { padding: var(--space-3); }
+}</code></pre>
+</section>
+{% for d in scssDirs %}
+<section class="doc-section">
+  <h2><code>src/scss/{{ d.dir }}/</code> <span class="u-muted">· {{ d.files.length }} fichier{{ 's' if d.files.length > 1 }}</span></h2>
+  <div class="doc-table"><table><tbody>{% for f in d.files %}<tr><td><code>{{ f.file }}</code></td><td>{{ f.doc }}</td></tr>{% endfor %}</tbody></table></div>
+</section>
+{% endfor %}
+{% endblock %}

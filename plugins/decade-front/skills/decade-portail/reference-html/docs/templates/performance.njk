@@ -1,0 +1,13 @@
+{% extends "layout.njk" %}
+{% block content %}
+<header class="doc-hero doc-hero--s"><h1>Performance</h1>
+<p class="doc-lead">Mesures Lighthouse du site construit (3 passages, valeur médiane). Seuils du projet : score ≥ {{ perf.seuils.scoreMin }}, LCP ≤ {{ perf.seuils.lcpMs }} ms, CLS ≤ {{ perf.seuils.cls }}, TBT ≤ {{ perf.seuils.tbtMs }} ms. Source : <code>qa/perf.json</code>.</p></header>
+<section class="doc-section">
+{% if perf.pages.length %}
+<div class="doc-table"><table>
+  <thead><tr><th>Page</th><th>Score</th><th>LCP</th><th>CLS</th><th>TBT</th><th>JS</th><th>Images</th><th>Statut</th></tr></thead>
+  <tbody>{% for p in perf.pages %}<tr><td>{{ p.page }}</td><td>{{ p.score }}</td><td>{{ p.lcpMs }} ms</td><td>{{ p.cls }}</td><td>{{ p.tbtMs }} ms</td><td>{{ p.jsKo }} Ko</td><td>{{ p.imagesKo }} Ko</td><td>{{ 'VERT' if p.ok else 'ROUGE' }}</td></tr>{% endfor %}</tbody>
+</table></div>
+{% else %}<p>Aucune mesure pour l’instant : lancer <code>/qa all</code>.</p>{% endif %}
+</section>
+{% endblock %}

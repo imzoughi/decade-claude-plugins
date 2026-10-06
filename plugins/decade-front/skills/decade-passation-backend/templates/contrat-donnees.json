@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "titre": "Contrat de données — {{projet}}",
+  "version": "{{versionDS}}",
+  "notes": "Une entité par objet métier affiché par le front. Les noms sont ceux du code. Montants en euros TTC (nombre décimal) sauf mention contraire.",
+  "entites": {
+    "Product": {
+      "description": "Produit affiché dans les listes, la fiche produit et le panier.",
+      "type": "object",
+      "required": ["id", "name", "price", "image"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "price": { "type": "number", "description": "euros TTC" },
+        "image": { "type": "string", "description": "URL ou chemin de l’image" },
+        "badge": { "type": "string", "enum": ["new", "promo"] }
+      }
+    }
+  },
+  "exemples": {
+    "Product": "exemples/product.json"
+  }
+}

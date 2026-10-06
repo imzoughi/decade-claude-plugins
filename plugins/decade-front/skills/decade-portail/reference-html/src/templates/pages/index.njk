@@ -1,0 +1,49 @@
+{#
+  Page : portail — point d’entrée public (GitHub Pages ou Vercel) : toutes les maquettes, groupées par parcours,
+  et la documentation. Généré depuis src/data/site.json (pages + groupes). Pas de header ni de footer du site.
+#}
+{% extends "layouts/base.njk" %}
+{% block title %}{{ data.site.name }} — maquettes front et documentation{% endblock %}
+{% block bodyClass %} doc portal-page{% endblock %}
+{% block main %}
+<div class="portal">
+  <header class="portal__hero">
+    <img class="portal__logo" src="{{ base }}assets/img/logo.svg" alt="{{ data.site.name }}" height="28">
+    <h1 class="portal__title">Maquettes front et documentation</h1>
+    <p class="portal__lead">{{ data.site.pages.length - 1 }} pages {{ data.site.stackLabel }} construites à partir du design system {{ data.site.name }} (version {{ data.site.dsVersion }}). Chaque page est interactive.</p>
+    <div class="portal__meta"><span class="portal__pill">Design system v{{ data.site.dsVersion }}</span><span class="portal__pill">{{ data.site.stackLabel }}</span><span class="portal__pill">{{ data.site.pages.length - 1 }} pages</span></div>
+    <div class="portal__ctas">
+      <a class="portal__btn portal__btn--primary" href="{{ url(data.site.home) }}">{{ icon('store', { size: 18 }) }}Voir le site</a>
+      <a class="portal__btn" href="{{ base }}docs/index.html">{{ icon('book-open', { size: 18 }) }}Documentation</a>
+      {% if data.site.repo %}<a class="portal__btn" href="{{ data.site.repo }}" rel="noopener">{{ icon('git-branch', { size: 18 }) }}Code source</a>{% endif %}
+    </div>
+  </header>
+  <div class="portal__groups">
+    {% for g in data.site.groups %}
+    <section class="portal__group" aria-labelledby="pg-{{ loop.index }}">
+      <div class="portal__ghead">
+        <span class="portal__gicon" aria-hidden="true">{{ icon(g.icon, { size: 22 }) }}</span>
+        <div><h2 class="portal__gtitle" id="pg-{{ loop.index }}">{{ g.title }}</h2><p class="portal__gtext">{{ g.text }}</p></div>
+      </div>
+      <ul class="portal__pages">
+        {% for p in data.site.pages %}{% if p.group == g.title %}
+        <li><a href="{{ base }}{{ p.file }}"><span>{{ p.title }}</span><code>{{ p.file }}</code>{{ icon('arrow-right', { size: 16, class: 'portal__arrow' }) }}</a></li>
+        {% endif %}{% endfor %}
+      </ul>
+    </section>
+    {% endfor %}
+    <section class="portal__group portal__group--docs" aria-labelledby="pg-docs">
+      <div class="portal__ghead">
+        <span class="portal__gicon" aria-hidden="true">{{ icon('book-open', { size: 22 }) }}</span>
+        <div><h2 class="portal__gtitle" id="pg-docs">Documentation</h2><p class="portal__gtext">Démarrage, architecture, tokens, composants avec exemples vivants et code, JavaScript, SCSS, journal des versions.</p></div>
+      </div>
+      <ul class="portal__pages">
+        {% for f, l in [["index.html", "Démarrage"], ["architecture.html", "Architecture"], ["guidelines.html", "Guide de marque"], ["tokens.html", "Tokens"], ["pages.html", "Pages & maquettes"], ["javascript.html", "JavaScript"], ["scss.html", "SCSS"]] %}
+        <li><a href="{{ base }}docs/{{ f }}"><span>{{ l }}</span>{{ icon('arrow-right', { size: 16, class: 'portal__arrow' }) }}</a></li>
+        {% endfor %}
+      </ul>
+    </section>
+  </div>
+  <footer class="portal__foot">Maquettes de démonstration : contenus, produits et prix sont fictifs · design system {{ data.site.name }} v{{ data.site.dsVersion }}.</footer>
+</div>
+{% endblock %}

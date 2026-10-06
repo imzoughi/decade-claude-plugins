@@ -1,0 +1,40 @@
+// Portail Decade (page d’entrée publique : toutes les maquettes + la documentation) — kit commun à toutes les stacks.
+// NE PAS MODIFIER dans un projet. Les couleurs et polices viennent des variables --doc-* définies dans _doc-theme.scss
+// (le seul fichier à adapter) : la page doit donc être dans un élément `.doc` (ex. <main class="doc portal">).
+// Aucune variable du projet n’est utilisée directement ici : le portail ne peut pas « perdre » ses styles si les tokens changent de nom.
+
+.portal-page { min-height: 100vh; background: var(--doc-surface-alt); }
+.portal { max-width: 1180px; margin: 0 auto; padding: clamp(40px, 7vw, 96px) clamp(16px, 4vw, 40px) 64px; display: flex; flex-direction: column; gap: clamp(40px, 6vw, 72px); background: transparent; color: var(--doc-ink); font-family: var(--doc-font); }
+.portal__hero { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; max-width: 960px; }
+.portal__logo { height: 24px; width: auto; }
+.portal__kicker { font: 700 12px/16px var(--doc-font); letter-spacing: .06em; text-transform: uppercase; color: var(--doc-accent); }
+.portal__title { margin: 0; font: 800 clamp(34px, 6vw, 80px)/.95 var(--doc-font-display); letter-spacing: -.005em; color: var(--doc-ink); overflow-wrap: anywhere; hyphens: auto; }
+.portal__lead { margin: 0; font-size: 18px; line-height: 28px; color: var(--doc-ink-muted); max-width: 60ch; }
+.portal__meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.portal__pill { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--doc-line); background: var(--doc-surface-raised); font: 600 12px/16px var(--doc-font); color: var(--doc-ink); }
+.portal__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.portal__btn { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--doc-line-strong); background: var(--doc-surface-raised); color: var(--doc-ink); font: 700 15px/1 var(--doc-font); white-space: nowrap; text-decoration: none; transition: box-shadow .15s, transform .15s; }
+.portal__btn:hover { box-shadow: var(--doc-shadow); transform: translateY(-1px); }
+.portal__btn:focus-visible, .portal__pages a:focus-visible { outline: 2px solid var(--doc-accent); outline-offset: 3px; }
+.portal__btn--primary { background: var(--doc-accent); border-color: var(--doc-accent); color: var(--doc-on-accent); }
+.portal__groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+.portal__group { display: flex; flex-direction: column; gap: 16px; padding: 28px; border-radius: 20px; border: 1px solid var(--doc-line); background: var(--doc-surface-raised); }
+.portal__group--docs { background: var(--doc-accent); border-color: var(--doc-accent); color: var(--doc-on-accent); }
+.portal__ghead { display: flex; gap: 16px; align-items: flex-start; }
+.portal__gicon { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--doc-accent-soft); color: var(--doc-accent); }
+.portal__group--docs .portal__gicon { background: rgba(255, 255, 255, .16); color: var(--doc-on-accent); }
+.portal__gtitle { margin: 0; font: 700 28px/1 var(--doc-font-display); color: inherit; }
+.portal__gtext { margin: 8px 0 0; font-size: 14px; line-height: 20px; color: var(--doc-ink-muted); }
+.portal__group--docs .portal__gtext { color: inherit; opacity: .8; }
+.portal__pages { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.portal__pages a { display: flex; align-items: center; gap: 12px; min-height: 48px; border-top: 1px solid var(--doc-line); color: inherit; text-decoration: none; font-weight: 600; }
+.portal__group--docs .portal__pages a { border-top-color: rgba(255, 255, 255, .22); }
+.portal__pages a > span { flex: 1; }
+.portal__pages code { font: 400 12px/16px ui-monospace, Menlo, Consolas, monospace; color: var(--doc-ink-muted); background: none; padding: 0; }
+.portal__group--docs .portal__pages code { color: inherit; opacity: .7; }
+.portal__arrow { transition: transform .15s; }
+.portal__pages a:hover > span { text-decoration: underline; text-underline-offset: .2em; }
+.portal__pages a:hover .portal__arrow { transform: translateX(3px); }
+.portal__foot { margin: 0; font-size: 13px; color: var(--doc-ink-muted); }
+@media (max-width: 767px) { .portal__groups { grid-template-columns: 1fr; } .portal__pages code { display: none; } .portal__btn { flex: 1; justify-content: center; } }
+@media (prefers-reduced-motion: reduce) { .portal__btn, .portal__arrow { transition: none; } }

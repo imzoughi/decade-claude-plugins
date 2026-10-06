@@ -1,0 +1,10 @@
+// Documentation — barre latérale + contenu, comme la doc HTML. Uniquement des tokens.
+.shell { display: grid; grid-template-columns: 260px minmax(0, 1fr); min-height: 100vh; }
+@media (max-width: 900px) { .shell { grid-template-columns: 1fr; } }
+.nav { border-right: 1px solid var(--border); padding: var(--space-6); position: sticky; top: 0; max-height: 100vh; overflow: auto; }
+.nav ul { list-style: none; padding: 0; margin: 0 0 var(--space-4); }
+.nav a { display: block; padding: var(--space-1) 0; color: inherit; text-decoration: none; }
+.brand { font-weight: 700; display: block; margin-bottom: var(--space-6); }
+.navTitle { font-size: var(--font-size-xs); color: var(--text-muted); margin: var(--space-4) 0 var(--space-2); }
+.main { padding: var(--space-8) clamp(16px, 4vw, 48px); min-width: 0; }
+.foot { margin-top: var(--space-12); color: var(--text-muted); font-size: var(--font-size-xs); }

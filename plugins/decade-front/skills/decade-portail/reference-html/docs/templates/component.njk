@@ -1,0 +1,50 @@
+{% extends "layout.njk" %}
+{% block content %}
+<header class="doc-hero doc-hero--s">
+  
+  <h1>{{ c.title }}</h1>
+  <div class="doc-meta">
+    {% if c.ds %}<span class="doc-pill">{{ icon('component', { size: 14 }) }}Design system : {{ c.ds }}</span>{% endif %}
+    {% if c.js %}<span class="doc-pill">{{ icon('braces', { size: 14 }) }}src/js/{{ c.js }}</span>{% endif %}
+    {% for s in c.scss %}<span class="doc-pill">{{ icon('palette', { size: 14 }) }}src/scss/{{ s }}</span>{% endfor %}
+  </div>
+</header>
+
+{% if dsDoc %}<section class="doc-section doc-prose"><h2>Règles du design system</h2>{{ dsDoc | safe }}</section>{% endif %}
+
+{% if c.example %}
+<section class="doc-section">
+  <h2>Exemple</h2>
+  <div class="doc-demo">{{ live | safe }}</div>
+</section>
+<section class="doc-section">
+  <h2>Code</h2>
+  <div class="doc-codetabs" data-doc-tabs>
+    <div class="doc-codetabs__list" role="tablist">
+      <button type="button" role="tab" aria-selected="true">Nunjucks</button>
+      <button type="button" role="tab" aria-selected="false">HTML produit</button>
+      <button type="button" class="doc-copy" data-doc-copy>{{ icon('copy', { size: 14 }) }}Copier</button>
+    </div>
+    <pre class="doc-code" role="tabpanel"><code>{{ (c.usage or c.example) | esc | safe }}</code></pre>
+    <pre class="doc-code" role="tabpanel" hidden><code>{{ html | esc | safe }}</code></pre>
+  </div>
+</section>
+{% endif %}
+
+{% if c.page %}
+<section class="doc-section">
+  <div class="section-row"><h2>Dans la page</h2><div class="doc-meta"><a class="doc-btn" href="{{ url(c.page) }}">{{ icon('external-link', { size: 16 }) }}Ouvrir la page</a>
+    <div class="is-seg" role="tablist" aria-label="Largeur" data-doc-device><button type="button" role="tab" class="is-seg__btn is-seg__btn--on" aria-selected="true" data-w="100%">Bureau</button><button type="button" role="tab" class="is-seg__btn" aria-selected="false" data-w="390px">Mobile</button></div></div></div>
+  <div class="doc-frame"><iframe src="{{ url(c.page) }}" title="Aperçu : {{ c.title }}" loading="lazy"></iframe></div>
+  <p class="u-muted">Module : <code>src/templates/modules/checkout|stores/…</code> inclus par <code>src/templates/pages/{{ c.page }}.njk</code>.</p>
+</section>
+{% endif %}
+
+{% if js or c.hooks %}
+<section class="doc-section">
+  <h2>Comportement (JS)</h2>
+  {% if js %}<pre class="doc-code doc-code--doc"><code>{{ js.doc | esc | safe }}</code></pre>{% endif %}
+  {% if c.hooks %}<h3>Hooks et API</h3><ul class="doc-hooks">{% for h in c.hooks %}<li><code>{{ h }}</code></li>{% endfor %}</ul>{% endif %}
+</section>
+{% endif %}
+{% endblock %}

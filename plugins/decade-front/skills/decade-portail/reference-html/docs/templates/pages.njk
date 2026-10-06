@@ -1,0 +1,22 @@
+{% extends "layout.njk" %}
+{% block content %}
+<header class="doc-hero doc-hero--s"><h1>Pages</h1>
+<p class="doc-lead">Chaque page est un gabarit de <code>src/templates/pages/</code> qui assemble des modules. Les liens entre pages suivent le parcours réel (panier → livraison → paiement → confirmation, compte, magasins).</p></header>
+{% for g in ["Catalogue", "Tunnel d'achat", "Compte", "Espace client", "Magasins"] %}
+<section class="doc-section">
+  <h2>{{ g }}</h2>
+  <div class="doc-pages">
+    {% for p in pagesInfo %}{% if p.group == g and p.id != "portal" %}
+    <article class="doc-page">
+      <div class="doc-page__thumb"><iframe src="../{{ p.file }}" title="Aperçu : {{ p.title }}" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="doc-page__body">
+        <h3><a href="../{{ p.file }}">{{ p.title }}</a></h3>
+        <p class="doc-page__file"><code>pages/{{ p.file | replace('.html', '.njk') }}</code> → <code>dist/{{ p.file }}</code></p>
+        <pre class="doc-page__doc">{{ p.doc | replace('Page: ', '') }}</pre>
+      </div>
+    </article>
+    {% endif %}{% endfor %}
+  </div>
+</section>
+{% endfor %}
+{% endblock %}

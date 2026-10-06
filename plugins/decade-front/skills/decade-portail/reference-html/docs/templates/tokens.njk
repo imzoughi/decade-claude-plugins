@@ -1,0 +1,61 @@
+{% extends "layout.njk" %}
+{% block content %}
+<header class="doc-hero doc-hero--s"><h1>Tokens</h1>
+<p class="doc-lead">Générés depuis <code>ds/tokens.json</code> vers <code>src/scss/abstracts/_tokens.scss</code> (maps et mixins de thème) et <code>base/_root.scss</code> (variables CSS). Utilisez toujours <code>var(--nom)</code>. Le bouton soleil / lune en haut bascule les exemples en thème sombre.</p></header>
+
+<section class="doc-section">
+  <h2>Couleurs</h2>
+  <div class="doc-swatches">
+    {% for t in tokens.color.tokens %}
+    <div class="doc-swatch">
+      <span class="doc-swatch__chip" style="background: var(--{{ t.name }})"></span>
+      <div><code>--{{ t.name }}</code><span class="doc-swatch__val">{{ t.value.light if t.value.light else t.value }}{% if t.value.dark and t.value.dark != t.value.light %} · sombre {{ t.value.dark }}{% endif %}</span><p>{{ t.usage }}</p></div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="doc-section">
+  <h2>Typographie — Open Sans</h2>
+  {% for g in tokens.type.groups %}
+  <h3>{{ g.name }}</h3>
+  <div class="doc-type">
+    {% for s in g.styles %}
+    <div class="doc-type__row">
+      <div class="doc-type__meta"><code>{{ s.name }}</code><span>{{ s.fontSize }} / {{ s.lineHeight }} · {{ s.fontWeight }}</span></div>
+      <p style="font: {{ s.fontWeight }} {{ s.fontSize }}/{{ s.lineHeight }} var(--font-sans){% if g.name == 'Display' and s.name != 'heading' %}; text-transform: uppercase{% endif %}">{{ s.sample }}</p>
+      <p class="doc-type__use">{{ s.usage }}</p>
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</section>
+
+<section class="doc-section">
+  <h2>Espacements</h2>
+  <div class="doc-table"><table><thead><tr><th>Token</th><th>Valeur</th><th></th><th>Usage</th></tr></thead><tbody>
+  {% for t in tokens.spacing.tokens %}<tr><td><code>--{{ t.name }}</code></td><td>{{ t.value }}</td><td><span class="doc-space" style="width: var(--{{ t.name }})"></span></td><td>{{ t.usage }}</td></tr>{% endfor %}
+  </tbody></table></div>
+</section>
+
+<section class="doc-section">
+  <h2>Rayons, ombres, z-index</h2>
+  <div class="doc-radii">
+    {% for t in tokens.radius.tokens %}<div class="doc-radius" style="border-radius: var(--{{ t.name }})"><code>--{{ t.name }}</code><span>{{ t.value }}</span></div>{% endfor %}
+    {% for t in tokens.shadow.tokens %}<div class="doc-radius doc-radius--shadow" style="box-shadow: var(--{{ t.name }})"><code>--{{ t.name }}</code><span>{{ t.usage }}</span></div>{% endfor %}
+  </div>
+  <div class="doc-table"><table><thead><tr><th>Z-index</th><th>Valeur</th><th>Usage</th></tr></thead><tbody>
+  {% for t in tokens.zIndex.tokens %}<tr><td><code>--{{ t.name }}</code></td><td>{{ t.value }}</td><td>{{ t.usage }}</td></tr>{% endfor %}
+  </tbody></table></div>
+</section>
+
+<section class="doc-section">
+  <h2>Points de rupture</h2>
+  <div class="doc-table"><table><thead><tr><th>Nom</th><th>Valeur</th><th>Mixin</th></tr></thead><tbody>
+    <tr><td>sm</td><td>480px</td><td><code>@include bp-down(sm)</code></td></tr>
+    <tr><td>md</td><td>760px</td><td><code>@include bp-down(md)</code> — bascule mobile des composants</td></tr>
+    <tr><td>lg</td><td>1024px</td><td><code>@include bp-up(lg)</code></td></tr>
+    <tr><td>xl</td><td>1280px</td><td>largeur maximale du contenu</td></tr>
+  </tbody></table></div>
+</section>
+{% endblock %}

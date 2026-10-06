@@ -1,0 +1,25 @@
+{% extends "layout.njk" %}
+{% block content %}
+<header class="doc-hero doc-hero--s"><h1>JavaScript</h1>
+<p class="doc-lead">JavaScript natif (ES2019 après compilation), un seul bundle <code>dist/js/main.js</code>. Amélioration progressive : le HTML est lisible sans JS ; chaque module s’accroche à son balisage via le registre. Seule dépendance : Leaflet pour la carte des magasins.</p></header>
+<section class="doc-section">
+  <h2>Noyau (src/js/core)</h2>
+  {% for m in core %}<h3><code>{{ m.file }}</code></h3><pre class="doc-code doc-code--doc"><code>{{ m.doc | esc | safe }}</code></pre>{% endfor %}
+</section>
+<section class="doc-section">
+  <h2>Modules (src/js/modules)</h2>
+  {% for m in jsModules %}<h3 id="{{ m.file | replace('modules/', '') | replace('.js', '') }}"><code>{{ m.file }}</code></h3><pre class="doc-code doc-code--doc"><code>{{ m.doc | esc | safe }}</code></pre>{% endfor %}
+</section>
+<section class="doc-section">
+  <h2>Événements</h2>
+  <div class="doc-table"><table><thead><tr><th>Événement</th><th>Émis par</th><th>detail</th></tr></thead><tbody>
+    <tr><td><code>is:drawer-open</code> / <code>is:drawer-close</code></td><td>le drawer</td><td>—</td></tr>
+    <tr><td><code>is:size-change</code> · <code>is:color-change</code> · <code>is:qty-change</code></td><td><code>.is-sizes</code> · <code>.is-swatches</code> · <code>.is-qty</code></td><td><code>{ value }</code></td></tr>
+    <tr><td><code>is:seg-change</code></td><td><code>[data-seg]</code></td><td><code>{ index, value }</code></td></tr>
+    <tr><td><code>is:store-select</code></td><td><code>[data-store-map]</code> (clic sur un repère)</td><td><code>{ index }</code></td></tr>
+    <tr><td><code>is:map-area</code></td><td><code>[data-store-map]</code> (« Rechercher dans cette zone »)</td><td><code>{ bounds }</code></td></tr>
+    <tr><td><code>is:carousel-update</code></td><td>à envoyer à <code>[data-carousel]</code> après un changement de contenu</td><td>—</td></tr>
+    <tr><td><code>is:lightbox-open</code></td><td>à envoyer à <code>[data-lightbox]</code></td><td><code>{ index, onClose }</code></td></tr>
+  </tbody></table></div>
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+// Mouvement Decade — variables générées depuis design/ds-export/tokens.json (famille motion)
+:root {
+  --motion-duration-instant: 100ms;
+  --motion-duration-fast: 160ms;
+  --motion-duration-base: 240ms;
+  --motion-duration-slow: 360ms;
+  --motion-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-enter: cubic-bezier(0, 0, 0, 1);
+  --motion-ease-exit: cubic-bezier(0.3, 0, 1, 1);
+  --motion-distance-small: 4px;
+  --motion-distance-medium: 16px;
+}
+
+// Niveau 1 et 2 : n’écrire le mouvement que pour ceux qui l’acceptent
+@mixin motion-safe { @media (prefers-reduced-motion: no-preference) { @content; } }
+// Variante douce pour le mode réduit (niveau 2 : fondu court)
+@mixin motion-reduce { @media (prefers-reduced-motion: reduce) { @content; } }
+
+// Filet de sécurité global : 0.01ms et non 0s, pour garder transitionend / animationend
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Exemple : drawer (niveau 2)
+.is-drawer__panel {
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+  @include motion-safe {
+    transition: transform var(--motion-duration-slow) var(--motion-ease-enter),
+                opacity var(--motion-duration-slow) var(--motion-ease-enter);
+  }
+}

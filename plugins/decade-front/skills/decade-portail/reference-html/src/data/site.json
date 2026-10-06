@@ -1,0 +1,21 @@
+{
+  "name": "Client",
+  "slug": "client",
+  "stackLabel": "HTML / SCSS / JS",
+  "dsVersion": "1.0.0",
+  "home": "home",
+  "repo": "",
+  "groups": [
+    { "title": "Catalogue", "icon": "store", "text": "Accueil, liste produits, fiche produit." },
+    { "title": "Tunnel d’achat", "icon": "shopping-cart", "text": "Panier, livraison, paiement, confirmation." },
+    { "title": "Compte", "icon": "user", "text": "Connexion, création de compte, espace client." }
+  ],
+  "pages": [
+    { "id": "portal", "file": "index.html", "title": "Maquettes et documentation", "group": "Projet" },
+    { "id": "home", "file": "home.html", "title": "Accueil", "group": "Catalogue" },
+    { "id": "listing", "file": "listing.html", "title": "Liste produits", "group": "Catalogue" },
+    { "id": "product", "file": "product.html", "title": "Fiche produit", "group": "Catalogue" },
+    { "id": "cart", "file": "cart.html", "title": "Panier", "group": "Tunnel d’achat" },
+    { "id": "login", "file": "login.html", "title": "Connexion", "group": "Compte" }
+  ]
+}

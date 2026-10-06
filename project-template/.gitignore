@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+storybook-static/
+.lighthouseci/
+test-results/
+tmp/
+workflow/historique/
+.env
+.env.*

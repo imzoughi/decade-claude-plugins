@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} · Documentation front {{ site.name }}</title>
+  <link rel="icon" href="../assets/img/logo-symbol.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="docs.css">
+  <script>try { var t = localStorage.getItem('doc-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body class="doc">
+  <a class="skip-link" href="#doc-main">Aller au contenu</a>
+  <header class="doc-top">
+    <button type="button" class="doc-top__menu doc-iconbtn" aria-label="Menu de la documentation" aria-expanded="false" data-doc-menu>{{ icon('menu', { size: 22 }) }}</button>
+    <a class="doc-top__brand" href="index.html"><img src="../assets/img/logo.svg" alt="{{ site.name }}" height="18"><span>Front · Documentation</span></a>
+    <div class="doc-top__search"><input type="search" placeholder="Filtrer les composants…" aria-label="Filtrer la navigation" data-doc-filter></div>
+    <div class="doc-top__actions">
+      <a class="doc-btn" href="../index.html">{{ icon('layout-grid', { size: 16 }) }}Toutes les pages</a>
+      <a class="doc-btn" href="../home.html">{{ icon('external-link', { size: 16 }) }}Voir le site</a>
+      <button type="button" class="doc-iconbtn" aria-label="Basculer le thème clair / sombre" data-doc-theme>{{ icon('sun-moon', { size: 20 }) }}</button>
+    </div>
+  </header>
+  <div class="doc-shell">
+    <nav class="doc-nav" aria-label="Documentation" id="doc-nav">
+      <p class="doc-nav__title">Prise en main</p>
+      <ul>
+        {% for f, l in [["index.html", "Démarrage"], ["architecture.html", "Architecture"], ["guidelines.html", "Guide de marque"], ["tokens.html", "Tokens"], ["pages.html", "Pages & maquettes"], ["javascript.html", "JavaScript"], ["scss.html", "SCSS"], ["versions.html", "Journal des versions"], ["performance.html", "Performance"]] %}
+        <li><a href="{{ f }}"{% if current == f %} aria-current="page"{% endif %}>{{ l }}</a></li>
+        {% endfor %}
+      </ul>
+      {% for g in nav %}
+      <p class="doc-nav__title">{{ g.group }}</p>
+      <ul>{% for c in g.items %}<li><a href="c-{{ c.id }}.html"{% if current == 'c-' ~ c.id ~ '.html' %} aria-current="page"{% endif %}>{{ c.title }}</a></li>{% endfor %}</ul>
+      {% endfor %}
+    </nav>
+    <main class="doc-main" id="doc-main" tabindex="-1">
+      {% block content %}{% endblock %}
+      <footer class="doc-foot">{{ site.name }} front · généré depuis le design system {{ site.name }} (Claude Design) · version {{ site.dsVersion }}</footer>
+    </main>
+  </div>
+  <div class="toast-region" aria-live="polite" data-toast-region></div>
+  <script src="../js/main.js" defer></script>
+  <script src="docs.js" defer></script>
+</body>
+</html>

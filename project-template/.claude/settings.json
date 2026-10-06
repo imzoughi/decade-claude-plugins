@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "model": "sonnet",
+  "extraKnownMarketplaces": {
+    "decade": {
+      "source": {
+        "source": "github",
+        "repo": "imzoughi/decade-claude-plugins"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "decade-front@decade": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npx playwright *)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(scripts/*)",
+      "Bash(node *hooks/etat.js)",
+      "Bash(node *hooks/conso.js)",
+      "mcp__figma",
+      "Bash(npx lhci *)",
+      "Bash(npx storybook *)",
+      "mcp__storybook",
+      "mcp__next-devtools"
+    ],
+    "deny": [
+      "Bash(git push *)",
+      "Bash(rm -rf *)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./node_modules/**)",
+      "Read(./.next/**)",
+      "Read(./out/**)",
+      "Read(./storybook-static/**)",
+      "Read(./.lighthouseci/**)"
+    ]
+  }
+}

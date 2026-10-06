@@ -1,0 +1,14 @@
+{
+  "name": "decade",
+  "owner": { "name": "Decade", "email": "tech@decade.fr" },
+  "metadata": { "description": "Skills, sous-agents et garde-fous Claude Code maison de Decade" },
+  "plugins": [
+    {
+      "name": "decade-front",
+      "source": "./plugins/decade-front",
+      "description": "Workflow Figma → Claude Design → maquettes front (HTML/SCSS/JS ou Next.js), démarré par /build-front, piloté par /next-step",
+      "version": "1.6.2",
+      "category": "development"
+    }
+  ]
+}

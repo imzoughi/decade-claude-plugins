@@ -1,0 +1,115 @@
+{% extends "layout.njk" %}
+{% block content %}
+<header class="doc-hero doc-hero--s"><h1>Architecture</h1>
+<p class="doc-lead">Trois couches séparées — données, gabarits, comportements — et un seul préfixe de classes, <code>is-</code>, partagé avec le design system.</p></header>
+
+<section class="doc-section">
+  <h2>Arborescence</h2>
+<pre class="doc-code"><code>{{ site.slug }}-front/
+├─ build.mjs                 compilation : pages, SCSS, JS, docs (+ --watch, --prod)
+├─ ds/                       copie du design system (bundle, tokens, READMEs) — source des générateurs
+├─ docs/                     documentation (catalogue, gabarits, styles)
+├─ src/
+│  ├─ data/                  products.json · stores.json · site.json (pages, menu compte) · icons.json
+│  ├─ templates/
+│  │  ├─ layouts/            base · site · checkout · account
+│  │  ├─ partials/           account-nav · drawer-menu · drawer-minicart · drawer-quick-add
+│  │  ├─ macros/             ui (button, badge, price, rating, textField, checkbox, radio, breadcrumb)
+│  │  │                      product-card · product-lists · stores
+│  │  ├─ modules/            un fichier par module : layout/ home/ catalog/ product/ checkout/
+│  │  │                      drawers/ account/ forms/ landing/ stores/
+│  │  └─ pages/              une page = un gabarit qui assemble des modules (account/ pour l’espace client)
+│  ├─ scss/
+│  │  ├─ abstracts/          tokens (maps + mixins de thème), breakpoints, mixins — aucune sortie CSS
+│  │  ├─ vendors/ base/      Leaflet · reset, variables CSS des tokens, typographie
+│  │  ├─ components/ layout/ product/ catalog/ checkout/ account/ landing/ stores/
+│  │  │                      partiels du design system, un par composant
+│  │  ├─ layouts/ pages/     mise en page du site et spécificités de pages
+│  │  ├─ refine/             couche d’affinage : rythme, espacements, surfaces, visuels de remplacement
+│  │  └─ main.scss           point d’entrée (ordre des partiels conservé)
+│  ├─ js/
+│  │  ├─ core/               registry · dom · icons · focus-trap
+│  │  ├─ modules/            un module par comportement (drawer, quick-add, checkout, store-map…)
+│  │  ├─ config.js           tuiles de carte, seuil de livraison offerte
+│  │  └─ main.js             importe les modules et les monte
+│  └─ assets/img/            logos du client
+├─ tools/                    générateurs (SCSS, modules, données, icônes), tests, QA
+└─ dist/                     site compilé (pages, css/, js/, assets/, docs/)</code></pre>
+</section>
+
+<section class="doc-section">
+  <h2>Flux de compilation</h2>
+  <div class="doc-flow">
+    <div><strong>src/data/*.json</strong><span>produits, magasins, pages</span></div>{{ icon('arrow-right', { size: 20 }) }}
+    <div><strong>Nunjucks</strong><span>layouts → pages → modules → macros</span></div>{{ icon('arrow-right', { size: 20 }) }}
+    <div><strong>dist/*.html</strong><span>HTML statique, liens relatifs</span></div>
+  </div>
+  <div class="doc-flow">
+    <div><strong>src/scss/main.scss</strong><span>Dart Sass, @use</span></div>{{ icon('arrow-right', { size: 20 }) }}
+    <div><strong>dist/css/main.css</strong><span>+ source map en dev</span></div>
+    <div><strong>src/js/main.js</strong><span>modules ES</span></div>{{ icon('arrow-right', { size: 20 }) }}
+    <div><strong>dist/js/main.js</strong><span>esbuild, un seul fichier IIFE</span></div>
+  </div>
+</section>
+
+<section class="doc-section">
+  <h2>Conventions</h2>
+  <div class="doc-table"><table>
+    <thead><tr><th>Sujet</th><th>Règle</th></tr></thead>
+    <tbody>
+      <tr><td>Classes</td><td>BEM préfixé <code>is-</code> (<code>is-card</code>, <code>is-card__media</code>, <code>is-card--on</code>) pour les composants du design system ; classes de mise en page sans préfixe (<code>container</code>, <code>pdp</code>, <code>listing</code>) ; utilitaires <code>u-</code>.</td></tr>
+      <tr><td>Hooks JS</td><td>Attributs <code>data-*</code> (<code>data-drawer-open</code>, <code>data-carousel</code>…) ou la classe racine du composant. On ne stylise jamais un <code>data-*</code>.</td></tr>
+      <tr><td>États</td><td>ARIA d’abord (<code>aria-pressed</code>, <code>aria-selected</code>, <code>aria-expanded</code>, <code>hidden</code>) + modificateur BEM pour le style.</td></tr>
+      <tr><td>Événements</td><td>Préfixés <code>is:</code> et bouillonnants : <code>is:drawer-open</code>, <code>is:qty-change</code>, <code>is:store-select</code>…</td></tr>
+      <tr><td>Tokens</td><td>Toujours <code>var(--token)</code> ; jamais de couleur en dur. Thème sombre via <code>data-theme="dark"</code> sur <code>&lt;html&gt;</code>.</td></tr>
+      <tr><td>Points de rupture</td><td><code>@include bp-down(md)</code> (760px), <code>bp-up(lg)</code>… définis dans <code>abstracts/_breakpoints.scss</code>.</td></tr>
+      <tr><td>Accessibilité</td><td>Contraste 4.5:1, focus visible 2px, pièges de focus dans les couches, Échap ferme la couche du dessus, <code>prefers-reduced-motion</code> respecté.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="doc-section">
+  <h2>Cycle de vie d’un module JS</h2>
+<pre class="doc-code"><code>// src/js/modules/mon-module.js
+import { register } from '../core/registry.js';
+
+register({
+  name: 'mon-module',
+  selector: '[data-mon-module]',   // ou la classe racine du composant
+  init(el) {                       // appelé une fois par élément, au chargement et à chaque mount(root)
+    el.addEventListener('click', …);
+  },
+});
+
+// src/js/main.js
+import './modules/mon-module.js';
+// Contenu injecté plus tard (AJAX, drawer) : window.App.mount(nouvelElement)</code></pre>
+</section>
+
+<section class="doc-section">
+  <h2>Ajouter un composant</h2>
+  <ol class="doc-list">
+    <li>Balisage : un module <code>src/templates/modules/&lt;groupe&gt;/&lt;nom&gt;.njk</code> (ou une macro dans <code>macros/</code> s’il est piloté par des données).</li>
+    <li>Styles : un partiel <code>src/scss/&lt;groupe&gt;/_&lt;nom&gt;.scss</code> qui commence par <code>@use '../abstracts' as *;</code>, ajouté dans <code>main.scss</code>.</li>
+    <li>Comportement (si besoin) : <code>src/js/modules/&lt;nom&gt;.js</code> avec son commentaire d’en-tête (repris dans la doc), importé dans <code>main.js</code>.</li>
+    <li>Documentation : une entrée dans <code>docs/catalog.mjs</code> (exemple, fichiers, hooks).</li>
+    <li>Page : <code>{{ "{% include \"modules/…\" %}" }}</code> dans le gabarit de page ; si c’est une nouvelle page, l’ajouter dans <code>src/data/site.json</code>.</li>
+  </ol>
+</section>
+
+<section class="doc-section">
+  <h2>Synchronisation avec le design system</h2>
+  <p>Le dossier <code>ds/</code> contient la dernière version du design system (bundle, CSS, tokens, READMEs). Les générateurs de <code>tools/</code> en tirent le code du projet :</p>
+  <div class="doc-table"><table>
+    <thead><tr><th>Commande</th><th>Effet</th></tr></thead>
+    <tbody>
+      <tr><td><code>node tools/gen-scss.mjs</code></td><td>Recrée <code>abstracts/_tokens.scss</code>, <code>base/_root.scss</code> et les partiels des composants depuis <code>ds/bundle.css</code> et <code>ds/tokens.json</code>, puis <code>main.scss</code>.</td></tr>
+      <tr><td><code>node tools/gen-modules.mjs [nom]</code></td><td>Amorce les modules Nunjucks par rendu serveur des composants. Ne réécrit pas un module existant (ils appartiennent au projet) sauf avec <code>--force</code>.</td></tr>
+      <tr><td><code>node tools/gen-data.mjs</code></td><td>Produits et icônes de démonstration vers <code>src/data/</code>.</td></tr>
+      <tr><td><code>node tools/gen-js-icons.mjs</code></td><td>Icônes Lucide utilisées par le JS (<code>core/icons.generated.js</code>).</td></tr>
+      <tr><td><code>node tools/test-macros.mjs</code></td><td>Compare le HTML des macros à celui des composants du design system (échec si différence).</td></tr>
+      <tr><td><code>node tools/qa/shots.cjs</code></td><td>Captures de toutes les pages (bureau + mobile), erreurs console et débordements horizontaux.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+{% endblock %}

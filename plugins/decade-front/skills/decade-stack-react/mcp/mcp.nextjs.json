@@ -1,0 +1,6 @@
+{
+  "mcpServers": {
+    "storybook": { "type": "http", "url": "http://localhost:6006/mcp" },
+    "next-devtools": { "command": "npx", "args": ["-y", "next-devtools-mcp@0.4.0"] }
+  }
+}

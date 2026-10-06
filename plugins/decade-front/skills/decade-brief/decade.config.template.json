@@ -1,0 +1,95 @@
+{
+  "client": "",
+  "projet": "",
+  "figma": "",
+  "stack": "",
+  "langue": "fr",
+  "icones": "lucide",
+  "casse": "phrase",
+  "node": "22",
+  "hebergement": "github-pages",
+  "pages": [],
+  "breakpoints": [
+    375,
+    768,
+    1280,
+    1440
+  ],
+  "motion": {
+    "niveau": "sobre"
+  },
+  "performance": {
+    "bloquant": false,
+    "scoreMin": 85,
+    "lcpMs": 2500,
+    "cls": 0.1,
+    "tbtMs": 300,
+    "jsKo": 300,
+    "imagesKo": 200
+  },
+  "outils": {
+    "storybookMcp": true,
+    "nextDevtoolsMcp": true,
+    "chromeDevtoolsMcp": false
+  },
+  "audit": {
+    "seuilNoGo": 60,
+    "seuilGo": 80,
+    "seuilUx": 75
+  },
+  "boucles": {
+    "toursMax": 3,
+    "maxTurnsComposant": 30,
+    "maxTurnsPage": 40
+  },
+  "gardeFous": {
+    "bloquerGitPush": true,
+    "couleursEnDurInterdites": true,
+    "dossiersProteges": [
+      "design/ds-export"
+    ]
+  },
+  "validations": {
+    "pilote": ""
+  },
+  "modeles": {
+    "boucle": "haiku",
+    "audit": "opus",
+    "preparation": "sonnet",
+    "integration": "sonnet",
+    "qa": "sonnet",
+    "documentation": "haiku",
+    "escalade": "opus",
+    "escaladeAuTour": 3
+  },
+  "budgetTokens": {
+    "_note": "Estimation Decade (tokens totaux, cache compris) pour calibrer la conso ; /decade-front:conso compare le réel à ce budget. À recaler après chaque projet.",
+    "html": {
+      "demarrer": 400000,
+      "audit": 1200000,
+      "pack": 1000000,
+      "parComposant": 380000,
+      "parPage": 970000,
+      "publier": 2000000,
+      "pilotage": 500000
+    },
+    "react": {
+      "demarrer": 400000,
+      "audit": 1200000,
+      "pack": 1000000,
+      "parComposant": 490000,
+      "parPage": 1080000,
+      "publier": 2500000,
+      "pilotage": 500000
+    },
+    "nextjs": {
+      "demarrer": 400000,
+      "audit": 1200000,
+      "pack": 1000000,
+      "parComposant": 540000,
+      "parPage": 1250000,
+      "publier": 3000000,
+      "pilotage": 500000
+    }
+  }
+}

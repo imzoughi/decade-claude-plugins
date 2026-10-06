@@ -1,0 +1,160 @@
+// Kit de documentation Decade — l’apparence de la doc du projet de référence Intersport, pour toutes les stacks.
+// NE PAS MODIFIER ce fichier dans un projet : seules les correspondances de couleurs et de polices changent,
+// dans _doc-theme.scss (à côté). Copié tel quel par le documentaliste ; le contrôleur QA vérifie qu’il est identique au kit.
+@use 'doc-theme';
+
+
+.doc { padding: 0; background: var(--doc-surface); }
+.doc-top { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: 16px; height: 64px; padding: 0 20px; background: var(--doc-surface-raised); border-bottom: 1px solid var(--doc-line); }
+.doc-top__menu { display: none; }
+.doc-top__brand { display: flex; align-items: center; gap: 12px; color: var(--doc-ink); text-decoration: none; font: 700 14px/20px var(--doc-font); white-space: nowrap; }
+.doc-top__brand img { height: 18px; width: auto; }
+.doc-top__brand span { padding-left: 12px; border-left: 1px solid var(--doc-line); color: var(--doc-ink-muted); }
+.doc-top__search { flex: 1; max-width: 360px; margin-left: auto; }
+.doc-top__search input { width: 100%; height: 40px; padding: 0 16px; border: 1px solid var(--doc-line-strong); border-radius: 999px; background: var(--doc-surface); color: var(--doc-ink); font: 400 14px var(--doc-font); }
+.doc-top__actions { display: flex; align-items: center; gap: 8px; }
+.doc-shell { display: grid; grid-template-columns: 272px minmax(0, 1fr); }
+.doc-nav { position: sticky; top: 64px; height: calc(100vh - 64px); overflow-y: auto; padding: 20px 16px 48px; border-right: 1px solid var(--doc-line); background: var(--doc-surface); }
+.doc-nav__title { margin: 20px 0 8px; padding: 0 12px; font: 700 11px/16px var(--doc-font); color: var(--doc-ink-muted); }
+.doc-nav__title:first-child { margin-top: 0; }
+.doc-nav ul { list-style: none; margin: 0; padding: 0; }
+.doc-nav a { display: block; padding: 6px 12px; border-radius: 8px; color: var(--doc-ink); font: 400 14px/20px var(--doc-font); text-decoration: none; }
+.doc-nav a:hover { background: var(--doc-surface-alt); }
+.doc-nav a[aria-current="page"] { background: var(--doc-accent-soft); color: var(--doc-accent); font-weight: 700; }
+.doc-main { min-width: 0; padding: 32px 40px 32px; outline: none; }
+.doc-hero { display: flex; flex-direction: column; gap: 16px; max-width: 880px; padding-bottom: 32px; margin-bottom: 32px; border-bottom: 1px solid var(--doc-line); }
+.doc-hero h1 { font: 800 48px/1 var(--doc-font-display); letter-spacing: -.005em; }
+.doc-hero--s h1 { font-size: 32px; line-height: 36px; }
+.doc-kicker { font: 700 12px/16px var(--doc-font); color: var(--doc-accent); }
+.doc-lead { font-size: 17px; line-height: 26px; color: var(--doc-ink-muted); }
+.doc-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.doc-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: var(--doc-surface-alt); border: 1px solid var(--doc-line); font: 600 12px/16px var(--doc-font); color: var(--doc-ink); }
+.doc-section { margin-bottom: 48px; display: flex; flex-direction: column; gap: 16px; }
+.doc-section > h2, .doc-section .section-row h2 { font: 700 30px/1.05 var(--doc-font-display); }
+.doc-section h3 { font: 700 16px/22px var(--doc-font); margin-top: 8px; }
+.doc-section :not(pre) > code, .doc-prose :not(pre) > code, .doc-list :not(pre) > code { padding: 1px 6px; border-radius: 4px; background: var(--doc-surface-alt); font: 500 .88em/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.doc-code { margin: 0; padding: 16px 20px; border-radius: 8px; background: #0e1320; color: #e6e9f0; overflow: auto; max-height: 560px; font: 400 13px/20px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; tab-size: 2; }
+.doc-code code { padding: 0; background: none; font: inherit; color: inherit; white-space: pre; }
+.doc-code--doc code { white-space: pre-wrap; }
+.doc-demo { padding: 24px; border: 1px solid var(--doc-line); border-radius: 12px; background: var(--doc-surface); overflow: auto; }
+.doc-demo .is-card { flex: 0 0 240px; }
+.doc-codetabs__list { display: flex; gap: 4px; align-items: center; margin-bottom: 8px; }
+.doc-codetabs__list [role="tab"] { min-height: 32px; padding: 0 16px; border: 1px solid var(--doc-line-strong); border-radius: 999px; background: none; color: var(--doc-ink); font: 600 13px var(--doc-font); cursor: pointer; }
+.doc-codetabs__list [aria-selected="true"] { background: var(--doc-accent); border-color: var(--doc-accent); color: var(--doc-on-accent); }
+.doc-copy { margin-left: auto; display: inline-flex; gap: 6px; align-items: center; min-height: 32px; padding: 0 12px; border: 0; background: none; color: var(--doc-accent); font: 600 13px var(--doc-font); cursor: pointer; }
+.doc-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.doc-card { display: flex; flex-direction: column; gap: 8px; padding: 20px; border: 1px solid var(--doc-line); border-radius: 12px; background: var(--doc-surface-raised); color: var(--doc-ink); text-decoration: none; }
+.doc-card:hover { box-shadow: var(--doc-shadow); }
+.doc-card strong { font: 800 18px/24px var(--doc-font); }
+.doc-card span { color: var(--doc-ink-muted); font-size: 14px; line-height: 20px; }
+.doc-list { display: flex; flex-direction: column; gap: 8px; padding-left: 20px; max-width: 880px; }
+.doc-prose { max-width: 880px; }
+.doc-prose p, .doc-prose li { line-height: 26px; }
+.doc-prose ul { display: flex; flex-direction: column; gap: 8px; padding-left: 20px; }
+.doc-prose h2 { font: 700 30px/1.05 var(--doc-font-display); margin-top: 24px; }
+.doc-prose h3 { margin-top: 16px; }
+.doc-prose blockquote { margin: 0; padding: 12px 16px; border-radius: 8px; background: var(--doc-accent-soft); }
+.doc-table { overflow-x: auto; border: 1px solid var(--doc-line); border-radius: 8px; }
+.doc-table table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 20px; }
+.doc-table th, .doc-table td { padding: 12px 16px; border-bottom: 1px solid var(--doc-line); text-align: left; vertical-align: top; }
+.doc-table tr:last-child td { border-bottom: 0; }
+.doc-table th { background: var(--doc-surface-alt); font-weight: 700; }
+.doc-flow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.doc-flow > div { display: flex; flex-direction: column; padding: 12px 16px; border: 1px solid var(--doc-line); border-radius: 8px; background: var(--doc-surface-raised); min-width: 180px; }
+.doc-flow span { font-size: 13px; color: var(--doc-ink-muted); }
+.doc-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.doc-swatch { display: flex; gap: 12px; padding: 12px; border: 1px solid var(--doc-line); border-radius: 8px; background: var(--doc-surface-raised); }
+.doc-swatch__chip { flex: none; width: 56px; height: 56px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12); }
+.doc-swatch__val { display: block; font-size: 12px; color: var(--doc-ink-muted); }
+.doc-swatch p { font-size: 13px; line-height: 18px; margin-top: 4px; }
+.doc-type { display: flex; flex-direction: column; border: 1px solid var(--doc-line); border-radius: 8px; }
+.doc-type__row { display: grid; grid-template-columns: 180px 1fr; gap: 4px 16px; padding: 16px; border-bottom: 1px solid var(--doc-line); }
+.doc-type__row:last-child { border-bottom: 0; }
+.doc-type__meta { display: flex; flex-direction: column; font-size: 12px; color: var(--doc-ink-muted); }
+.doc-type__use { grid-column: 2; font-size: 13px; color: var(--doc-ink-muted); }
+.doc-space { display: block; height: 12px; background: var(--doc-accent); border-radius: 2px; }
+.doc-radii { display: flex; flex-wrap: wrap; gap: 16px; }
+.doc-radius { display: flex; flex-direction: column; justify-content: flex-end; width: 150px; height: 110px; padding: 12px; border: 1px solid var(--doc-line-strong); background: var(--doc-surface-raised); font-size: 12px; }
+.doc-radius--shadow { border-color: var(--doc-line); border-radius: 8px; }
+.doc-radius span { color: var(--doc-ink-muted); }
+.doc-hooks { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
+.doc-frame { height: 720px; border: 1px solid var(--doc-line); border-radius: 12px; overflow: hidden; background: var(--doc-surface-alt); display: flex; justify-content: center; }
+.doc-frame iframe { width: 100%; height: 100%; border: 0; background: #fff; transition: width .2s; }
+.doc-pages { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+.doc-page { display: flex; flex-direction: column; border: 1px solid var(--doc-line); border-radius: 12px; overflow: hidden; background: var(--doc-surface-raised); }
+.doc-page__thumb { position: relative; height: 220px; overflow: hidden; border-bottom: 1px solid var(--doc-line); background: var(--doc-surface-alt); }
+.doc-page__thumb iframe { position: absolute; top: 0; left: 0; width: 1280px; height: 880px; border: 0; transform: scale(.28); transform-origin: 0 0; pointer-events: none; }
+.doc-page__body { display: flex; flex-direction: column; gap: 8px; padding: 16px; }
+.doc-page__body h3 { margin: 0; }
+.doc-page__body h3 a { color: var(--doc-ink); }
+.doc-page__file { font-size: 12px; }
+.doc-page__doc { margin: 0; white-space: pre-wrap; font: 400 13px/19px var(--doc-font); color: var(--doc-ink-muted); }
+.doc-foot { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--doc-line); font-size: 12px; color: var(--doc-ink-muted); }
+.doc [hidden] { display: none !important; }
+@media (max-width: 1100px) { .doc-main { padding: 24px; } }
+@media (max-width: 860px) {
+  .doc-top { padding: 0 12px; gap: 8px; }
+  .doc-top__menu { display: grid; }
+  .doc-top__brand span, .doc-top__search, .doc-top__actions .doc-btn { display: none; }
+  .doc-shell { grid-template-columns: 1fr; }
+  .doc-nav { position: fixed; inset: 64px 0 0 0; z-index: 40; height: auto; transform: translateX(-100%); visibility: hidden; transition: transform .2s, visibility 0s .2s; background: var(--doc-surface-raised); }
+  .doc-nav.is-open { transform: none; visibility: visible; transition: transform .2s; }
+  .doc-main { padding: 20px 16px; }
+  .doc-hero h1 { font-size: 28px; line-height: 32px; }
+  .doc-type__row { grid-template-columns: 1fr; } .doc-type__use { grid-column: 1; }
+  .doc-demo { padding: 16px; }
+  .doc-pages { grid-template-columns: 1fr; }
+}
+
+// Workflow page: prompts to copy
+.doc-workflow { max-width: 920px; }
+.doc-workflow .doc-codetabs { position: relative; }
+.doc-workflow .doc-codetabs__list { position: absolute; top: 8px; right: 8px; margin: 0; }
+.doc-workflow .doc-copy { background: rgba(255, 255, 255, .12); color: #fff; border-radius: 999px; }
+.doc-workflow .doc-code code { white-space: pre-wrap; }
+.doc-workflow ol { display: flex; flex-direction: column; gap: 8px; padding-left: 20px; }
+
+
+// ——— Ajouts du kit (stacks html et Next.js) ———
+.doc { background: var(--doc-surface); color: var(--doc-ink); font: 400 15px/1.6 var(--doc-font); -webkit-font-smoothing: antialiased; }
+:where(.doc) *, :where(.doc) *::before, :where(.doc) *::after { box-sizing: border-box; }
+:where(.doc) a { color: var(--doc-accent); }
+.doc :focus-visible { outline: 2px solid var(--doc-accent); outline-offset: 2px; }
+.skip-link { position: absolute; left: -9999px; top: 8px; z-index: 100; padding: 8px 16px; border-radius: 8px; background: var(--doc-ink); color: var(--doc-surface); }
+.skip-link:focus { left: 8px; }
+.doc-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--doc-line-strong); background: var(--doc-surface-raised); color: var(--doc-ink); font: 600 13px var(--doc-font); text-decoration: none; cursor: pointer; }
+.doc-btn--primary { background: var(--doc-accent); border-color: var(--doc-accent); color: var(--doc-on-accent); }
+.doc-iconbtn { display: inline-grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 999px; background: none; color: var(--doc-ink); cursor: pointer; }
+.doc-iconbtn:hover { background: var(--doc-surface-alt); }
+// Contenu Markdown (README du design system, fiches, journal) : rendu par un vrai parseur (GFM), jamais à la main.
+.doc-prose { display: flex; flex-direction: column; gap: 12px; }
+.doc-prose > :first-child { margin-top: 0; }
+.doc-prose h2, .doc-prose h3, .doc-prose h4, .doc-prose h5 { scroll-margin-top: 80px; margin: 0; }
+.doc-prose h3 { font: 700 20px/28px var(--doc-font-display); margin-top: 16px; }
+.doc-prose h4 { font: 700 16px/24px var(--doc-font); margin-top: 8px; }
+.doc-prose h5 { font: 700 14px/20px var(--doc-font); color: var(--doc-ink-muted); }
+.doc-prose p, .doc-prose ul, .doc-prose ol, .doc-prose blockquote, .doc-prose pre, .doc-prose .doc-table { margin: 0; }
+.doc-prose ol { display: flex; flex-direction: column; gap: 8px; padding-left: 20px; }
+.doc-prose li > ul, .doc-prose li > ol { margin-top: 8px; }
+.doc-prose img { max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--doc-line); }
+.doc-prose hr { border: 0; border-top: 1px solid var(--doc-line); margin: 16px 0; }
+.doc-prose .anchor { margin-left: 6px; color: var(--doc-ink-muted); text-decoration: none; opacity: 0; }
+.doc-prose :hover > .anchor { opacity: 1; }
+.doc-prose table code, .doc-table code { white-space: nowrap; }
+// Blocs de code surlignés (Shiki, thème sombre, rendu au build : aucun JS chez le visiteur).
+.doc-codeblock { position: relative; }
+// Le code d’un bloc ne reprend jamais le style du code en ligne (fond clair = texte illisible sur fond sombre).
+.doc pre code, .doc pre code span { padding: 0; border-radius: 0; background: none; font: inherit; }
+.doc pre.shiki code { color: inherit; }
+.doc-codeblock .doc-copy { position: absolute; top: 8px; right: 8px; margin: 0; background: rgba(255, 255, 255, .12); color: #fff; border-radius: 999px; }
+.doc-codeblock pre.shiki, .doc-code.shiki { margin: 0; padding: 16px 20px; padding-right: 96px; border-radius: 8px; overflow: auto; max-height: 560px; font: 400 13px/20px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; tab-size: 2; }
+.doc-codeblock pre.shiki:focus-visible { outline-offset: 2px; }
+.doc-codeblock__label { display: block; margin-bottom: 6px; font: 600 12px/16px var(--doc-font); color: var(--doc-ink-muted); }
+// Exemples de composants : un exemple = une story (Next.js) ou un gabarit (html), avec son code juste dessous.
+.doc-example { display: flex; flex-direction: column; gap: 8px; }
+.doc-example__title { font: 700 14px/20px var(--doc-font); }
+@media (prefers-reduced-motion: reduce) { .doc *, .doc *::before, .doc *::after { transition: none !important; animation: none !important; } }
+// Priorités : le bouton de menu n’apparaît qu’en mobile ; titres de groupe espacés dans la navigation.
+.doc-top .doc-top__menu { display: none; }
+.doc-nav > div + div > .doc-nav__title { margin-top: 20px; }
+@media (max-width: 860px) { .doc-top .doc-top__menu { display: inline-grid; } }

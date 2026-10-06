@@ -1,0 +1,29 @@
+// Correspondances entre le kit de documentation et les tokens DU PROJET.
+// C’est le seul fichier du kit à adapter : remplace les noms de droite par ceux de `design/ds-export/tokens.json`
+// (les valeurs après la virgule sont des secours, utilisés si le token n’existe pas).
+.doc {
+  --doc-surface: var(--color-surface, #ffffff);
+  --doc-surface-alt: var(--color-surface-subtle, #f4f5f7);
+  --doc-surface-raised: var(--color-surface-raised, #ffffff);
+  --doc-ink: var(--color-text, #14161a);
+  --doc-ink-muted: var(--color-text-muted, #5b616e);
+  --doc-line: var(--color-border, #e3e5ea);
+  --doc-line-strong: var(--color-border-strong, #c4c8d0);
+  --doc-accent: var(--color-primary, #2f4fd8);            // liens, page courante, onglet actif
+  --doc-accent-soft: var(--color-primary-subtle, #e8ecfd); // fond de la page courante, citations
+  --doc-on-accent: var(--color-on-primary, #ffffff);
+  --doc-shadow: var(--shadow-md, 0 4px 16px rgba(20, 22, 26, .08));
+  --doc-font: var(--font-body, system-ui, sans-serif);
+  --doc-font-display: var(--font-display, var(--doc-font));
+}
+// Thème sombre de la doc (bouton soleil / lune) : mêmes correspondances, tokens sombres du projet.
+[data-theme="dark"] .doc, .doc[data-theme="dark"] {
+  --doc-surface: var(--color-surface, #121418);
+  --doc-surface-alt: var(--color-surface-subtle, #1c1f25);
+  --doc-surface-raised: var(--color-surface-raised, #181b20);
+  --doc-ink: var(--color-text, #eef0f4);
+  --doc-ink-muted: var(--color-text-muted, #a3a9b5);
+  --doc-line: var(--color-border, #2c3038);
+  --doc-line-strong: var(--color-border-strong, #3c414b);
+  --doc-accent-soft: var(--color-primary-subtle, #1f2a55);
+}

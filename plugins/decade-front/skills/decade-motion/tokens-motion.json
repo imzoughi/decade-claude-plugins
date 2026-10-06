@@ -1,0 +1,15 @@
+{
+  "motion": [
+    { "name": "motion.duration.instant", "value": "100ms", "usage": "retour immédiat : survol, appui" },
+    { "name": "motion.duration.fast",    "value": "160ms", "usage": "petits éléments : bouton, case, info-bulle" },
+    { "name": "motion.duration.base",    "value": "240ms", "usage": "éléments moyens : menu, accordéon, onglet" },
+    { "name": "motion.duration.slow",    "value": "360ms", "usage": "grands éléments : drawer, modale, méga-menu" },
+    { "name": "motion.ease.standard",    "value": "cubic-bezier(0.2, 0, 0, 1)", "usage": "changement d’état sur place" },
+    { "name": "motion.ease.enter",       "value": "cubic-bezier(0, 0, 0, 1)",   "usage": "un élément entre à l’écran" },
+    { "name": "motion.ease.exit",        "value": "cubic-bezier(0.3, 0, 1, 1)", "usage": "un élément quitte l’écran" },
+    { "name": "motion.distance.small",   "value": "4px",  "usage": "soulèvement d’une carte, décalage d’un toast" },
+    { "name": "motion.distance.medium",  "value": "16px", "usage": "apparition d’un menu, d’un contenu" },
+    { "name": "motion.stagger",          "value": "40ms", "usage": "décalage entre éléments d’une liste" }
+  ],
+  "niveaux": { "sobre": "durées telles quelles, pas d’apparition au défilement", "expressif": "durées telles quelles, apparitions au défilement autorisées (niveau 2)" }
+}
