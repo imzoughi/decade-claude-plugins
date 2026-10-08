@@ -15,5 +15,5 @@ Les composants suivent **decade-stack-react** (et donc les skills Vercel intégr
 - Animations : skill `decade-motion` (variables `--motion-*`, `useReducedMotion`).
 
 ## Next DevTools MCP (si `outils.nextDevtoolsMcp` vaut true, Next.js ≥ 16)
-- Serveur `next-devtools` dans `.mcp.json` ; il se connecte seul au serveur de développement (`npm run dev`).
+- Serveur `next-devtools` dans `.mcp.json`, installé dans le projet (`next-devtools-mcp`, version fixée) et lancé avec `npx --no-install` ; il se connecte seul au serveur de développement (`npm run dev`).
 - Après chaque modification : `get_errors` (erreurs de compilation, d’exécution, d’hydratation) ; `get_routes` pour vérifier que chaque page du BRIEF a sa route.

@@ -25,7 +25,8 @@
     "cls": 0.1,
     "tbtMs": 300,
     "jsKo": 300,
-    "imagesKo": 200
+    "imagesKo": 200,
+    "urls": []
   },
   "outils": {
     "storybookMcp": true,

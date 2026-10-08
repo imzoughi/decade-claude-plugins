@@ -8,7 +8,7 @@ const root = path.resolve(projectDir(input));
 const abs = path.resolve(root, file);
 const rel = path.relative(root, abs).split(path.sep).join("/");
 const base = path.basename(abs);
-if ((/^\.env(\..*)?$/.test(base) && !/\.(example|sample|template)$/.test(base)) || /\.(pem|key|p12)$/.test(base) || /^id_(rsa|ed25519)/.test(base)) block(`accès à un fichier secret refusé (${base}).`);
+if ((/^\.env(\..*)?$/.test(base) && !/\.(example|sample|template)$/.test(base)) || /\.(pem|key|p12|pfx|jks|keystore)$/.test(base) || /^id_(rsa|ed25519|ecdsa)/.test(base) || /^(\.npmrc|\.netrc|\.pgpass|\.htpasswd)$/.test(base) || /^(credentials|service[-_]?account|secrets?)([-_.].*)?\.(json|ya?ml|txt|ini)$/i.test(base)) block(`accès à un fichier secret refusé (${base}).`);
 if (tool === "Read") process.exit(0);
 if (rel.startsWith("..") || path.isAbsolute(rel)) block(`écriture hors du projet refusée (${file}).`);
 const prot = ((config(input).gardeFous || {}).dossiersProteges) || ["design/ds-export"];

@@ -173,6 +173,13 @@ claude mcp add --transport http figma-desktop http://127.0.0.1:3845/mcp
 
 Installe les skills **impeccable** et **ui-ux-pro-max** dans Claude Code **et** dans Claude (Cowork), pour qu’ils servent aussi dans Claude Design. Sans eux, le plugin applique une version courte de leurs règles (skill `decade-ui-ux`).
 
+| Skill | Source à utiliser |
+|---|---|
+| impeccable | dépôt GitHub `pbakaus/impeccable` |
+| ui-ux-pro-max | dépôt GitHub de son auteur (`ui-ux-pro-max-skill`), à confirmer par l’équipe avant la première installation |
+
+> **Sécurité.** Ce sont des skills tiers : un skill peut contenir des scripts que Claude exécutera. Installe-les uniquement depuis ces dépôts, jamais depuis une copie ou un site de partage, à une version précise (tag ou commit noté par l’équipe), et relis le contenu avant la première installation et à chaque mise à jour. En cas de doute, ne les installe pas : le plugin fonctionne sans.
+
 ### 1.6 Vérification rapide
 
 - [ ] `node -v` affiche 20.11 ou plus (22 conseillé). Si une vieille version sort, c’est un autre Node qui passe en premier dans le PATH : corrige-le avant de continuer.
@@ -229,7 +236,7 @@ Si cette ligne n’apparaît pas, le plugin n’est pas actif dans ce dossier : 
 1. vérifie l’installation (Node, accès au Figma, plugin, skills conseillés) et te dit quoi corriger ;
 2. crée `decade.config.json` avec le lien Figma ;
 3. lance le cadrage, décrit à l’étape 1 ci-dessous ;
-4. installe les outils propres à la stack : Lighthouse pour la performance, et Storybook MCP et Next DevTools MCP pour React et Next.js.
+4. installe les outils propres à la stack, dans le projet et à version fixée : Lighthouse CI (`@lhci/cli`) pour la performance, et Storybook MCP et Next DevTools MCP pour React et Next.js. Aucun serveur MCP n’est téléchargé au lancement (`npx --no-install`).
 
 > `/build-front` ne sert qu’une fois. Sur un projet déjà démarré, il ne refait rien et te renvoie vers `/next-step`.
 

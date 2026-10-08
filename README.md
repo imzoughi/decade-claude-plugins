@@ -62,7 +62,7 @@ La stack est choisie à l’étape 1 (`/build-front`, question obligatoire, sans
 Skills tiers intégrés au plugin, à version figée et relus (voir `VENDOR.md`) : `vercel-react-best-practices` (performance React / Next.js) et `vercel-composition-patterns` (API des composants). Storybook MCP est en préversion : s’il ne répond pas, le travail continue sans lui.
 
 ## Performance dans la QA
-Lighthouse CI sur le site construit, 3 passages, médiane : score ≥ 85, LCP ≤ 2,5 s, CLS ≤ 0,1, TBT ≤ 300 ms, JS ≤ 300 Ko et images ≤ 200 Ko par page. Seuils dans `decade.config.json` → `performance` (avertissement au premier projet, bloquant ensuite). Mesuré dans la boucle des pages et par `/qa all`, jamais dans la boucle des composants. Résultats dans `qa/perf.json` et dans la page « Performance » du portail. Diagnostic d’un résultat rouge : Chrome DevTools MCP (optionnel).
+Lighthouse CI (`@lhci/cli`, installé dans le projet) sur le site construit (en Next.js export statique : `out/` servi en local), 3 passages, médiane : score ≥ 85, LCP ≤ 2,5 s, CLS ≤ 0,1, TBT ≤ 300 ms, JS ≤ 300 Ko et images ≤ 200 Ko par page. Seuils dans `decade.config.json` → `performance` (avertissement au premier projet, bloquant ensuite). Mesuré dans la boucle des pages et par `/qa all`, jamais dans la boucle des composants. Résultats dans `qa/perf.json` et dans la page « Performance » du portail. Diagnostic d’un résultat rouge : Chrome DevTools MCP (optionnel).
 
 ## Faire vivre le design system
 1. Le designer livre une mise à jour : `/sync-figma` compare le Figma à la photo prise à l’audit (nouveau, modifié, supprimé).
@@ -110,8 +110,8 @@ Réglable par projet dans `decade.config.json` → `modeles`. Mesure : hook `log
 ## Quatre couches de garde-fous
 1. **Permissions** (`.claude/settings.json`) : liste de commandes autorisées, `git push`, `rm -rf` et `.env` refusés.
 2. **Hooks** du plugin, actifs même en mode automatique :
-   - `guard-bash` bloque `rm -rf`, `git reset --hard`, push forcé, tout `git push`, `curl | sh`, `npm publish`, l’affichage de secrets ;
-   - `guard-files` bloque les secrets (`.env`, clés), l’écriture hors du projet et dans `design/ds-export/` (référence validée) ;
+   - `guard-bash` bloque `rm -rf`, `git reset --hard`, push forcé, tout `git push`, `curl | sh`, `npm publish`, l’affichage de secrets et la lecture d’un fichier secret en ligne de commande (`cat .env`, `type .npmrc`…) ;
+   - `guard-files` bloque les secrets (`.env*`, clés `.pem` `.key` `.p12`, `id_rsa`, `.npmrc`, `.netrc`, `credentials*.json`, `secrets*.json`, `service-account*.json`), l’écriture hors du projet et dans `design/ds-export/` (référence validée) ;
    - `check-tokens` refuse une couleur, une durée ou une courbe d’animation écrite en dur dans un composant et demande un token ;
    - `log-agent` garde la trace de chaque sous-agent ;
    - `guide-session` et `check-guide` garantissent le guidage du pilote (voir plus haut).
@@ -119,6 +119,25 @@ Réglable par projet dans `decade.config.json` → `modeles`. Mesure : hook `log
 4. **Humains et bornes** : 4 validations du pilote (BRIEF, audit, design system, recette), relecture des diffs, boucles bornées (`toursMax`, `--max-turns`).
 
 Guide pas à pas pour les équipes : [ONBOARDING.md](ONBOARDING.md).
+
+## Sécurité : MCP et services utilisés
+
+| Outil | Où | Ce qui passe | Accès |
+|---|---|---|---|
+| MCP Figma (plugin officiel, ou app desktop `127.0.0.1:3845`) | en ligne (ou local) | le fichier Figma du client, avec le compte Figma du pilote | autorisé sans confirmation |
+| MCP Storybook | local (`localhost:6006`) | composants du projet | autorisé |
+| MCP Next DevTools | local, dépendance du projet (`next-devtools-mcp`, version fixée) | erreurs de build et d’hydratation | autorisé |
+| MCP Chrome DevTools | local, dépendance du projet (`chrome-devtools-mcp`, version fixée), désactivé par défaut | traces de performance | confirmation |
+| Claude Code (Anthropic) | en ligne | code, contenus Figma lus, rapports | abonnement |
+| Claude Design | en ligne, manuel | le pack déposé par le pilote | manuel |
+| GitHub | en ligne | plugin (dépôt privé), projet (push par le pilote), portail sur Pages | `git push` interdit à Claude |
+| npm | en ligne | dépendances du projet, à l’installation | — |
+
+- Aucun serveur MCP n’est lancé par `npx -y` ni en `@latest` : chaque serveur est une dépendance du projet, version fixée, sous `package-lock.json`, lancé avec `npx --no-install`.
+- Les hooks ne font aucun appel réseau. Lighthouse CI (`@lhci/cli`, dépendance du projet) garde ses rapports en local.
+- Le portail publié sur GitHub Pages est **public**, même si le dépôt est privé : accord du client, ou hébergement protégé.
+- Skills tiers (impeccable, ui-ux-pro-max) : uniquement depuis leur dépôt officiel, à une version précise, relus avant installation (voir ONBOARDING 1.5).
+- Télémétrie de Claude Code : `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1` si la politique interne l’exige.
 
 ## Installation
 Pas à pas complet (Windows compris) : [ONBOARDING.md](ONBOARDING.md), sections 1.3 et 2.2.

@@ -11,6 +11,7 @@ const rules = [
   [/\b(curl|wget)\b[^|]*\|\s*(sh|bash|zsh|node|python)/, "exécution d’un script téléchargé interdite."],
   [/\bnpm\s+publish\b/, "publication npm interdite."],
   [/\b(printenv|env)\b\s*$|echo\s+\$\{?[A-Z_]*(TOKEN|SECRET|KEY|PASSWORD)/, "affichage de secrets interdit."],
+  [/\b(cat|less|more|head|tail|type|bat|grep|rg|awk|sed|base64|xxd|Get-Content|gc)\b[^|;&]*(\.env(?!\.(example|sample|template))\b|\.(pem|key|p12|pfx)\b|\bid_(rsa|ed25519|ecdsa)\b|\.npmrc\b|\.netrc\b|\b(credentials|service[-_]?account|secrets?)[-_.\w]*\.(json|ya?ml|txt|ini)\b)/i, "lecture d’un fichier secret interdite."],
 ];
 for (const [re, msg] of rules) if (re.test(cmd)) block(msg);
 if (gf.bloquerGitPush !== false && /\bgit\s+push\b/.test(cmd)) block("Claude ne pousse pas : donne la commande au pilote, qui relit et pousse lui-même.");

@@ -20,7 +20,9 @@ Largeurs : `decade.config.json` → `breakpoints`.
 | Règles du BRIEF | lecture | casse, police des titres, boutons, icônes conformes |
 
 ## Performance : quand et comment
-- Mesure sur le site **construit** (html : `dist/` ; nextjs : `next build` puis `next start` ; react : `vite build` puis `vite preview`), 3 passages, valeur médiane.
+- Outil : `@lhci/cli`, dépendance de développement du projet (installée par `/build-front`), qui pilote le Chrome du poste. Les rapports restent en local (`qa/lighthouse/`), jamais d’envoi vers un stockage public.
+- Mesure sur le site **construit** (html : `dist/` ; nextjs : `next build` puis `next start`, ou en export statique `out/` servi par `scripts/serve-static.mjs`, basePath compris ; react : `vite build` puis `vite preview`), 3 passages, valeur médiane.
+- Chemins mesurés : `performance.urls` dans la config s’il est rempli (ex. `["/", "/panier"]`), sinon `/<page>` pour chaque page de `pages`.
 - Dans la boucle des **pages** : la page vérifiée seulement. Dans `/qa all` : toutes les pages. Jamais dans la boucle des composants.
 - On mesure ce que le front maîtrise (affichage, stabilité, poids) : les données sont fictives, pas de test serveur ni d’API.
 - `performance.bloquant` vaut false au premier projet (avertissement), puis true ; on resserre les seuils projet après projet.

@@ -13,7 +13,7 @@ Tu démarres un projet Decade. La personne en face (le pilote) n’est pas déve
 - Sans lien Figma dans $ARGUMENTS : demande-le, sans rien créer.
 
 ## 1. Vérifier l’installation
-Coche et affiche : Node ≥ 20.11 (`node -v`) · serveur MCP Figma joignable (lecture du fichier) · plugin decade-front actif · skills impeccable et ui-ux-pro-max (conseillés). Pour chaque point manquant, donne l’action exacte et arrête-toi si Figma n’est pas joignable.
+Coche et affiche : Node ≥ 20.11 (`node -v`) · serveur MCP Figma joignable (lecture du fichier) · plugin decade-front actif · skills impeccable et ui-ux-pro-max (conseillés, installés depuis leur dépôt officiel : voir ONBOARDING 1.5). Après l’outillage (section 4), vérifie aussi `npx --no-install lhci --version`. Pour chaque point manquant, donne l’action exacte et arrête-toi si Figma n’est pas joignable.
 
 ## 2. Créer la configuration
 Crée `decade.config.json` depuis le modèle du skill `decade-brief`, avec `figma` = $ARGUMENTS.
@@ -23,11 +23,13 @@ Applique le skill `decade-brief` : d’abord l’**inventaire de toutes les page
 Si tu t’arrêtes pour attendre le choix des pages, termine quand même par le bloc « 🧭 À toi, pilote » : à faire maintenant, choisir les pages (numéros, « recommandé », ou cases de `workflow/pages.md`).
 
 ## 4. Outiller selon la stack
-- Toutes les stacks : copie `perf/lighthouserc.cjs` du skill `decade-qa` à la racine et ajoute le script npm `perf` (`lhci autorun`).
+- Toutes les stacks : installe Lighthouse CI dans le projet, version fixée (`npm i -D --save-exact @lhci/cli@0.15.1`), copie `perf/lighthouserc.cjs` du skill `decade-qa` à la racine et ajoute le script npm `perf` (`lhci autorun`). Il utilise le Chrome du poste et garde ses rapports en local (`qa/lighthouse/`).
+- `nextjs` : copie aussi `perf/serve-static.mjs` dans `scripts/` (serveur local sans dépendance, pour mesurer `out/` quand le projet est en export statique : `next start` ne fonctionne pas dans ce mode).
 - Toutes les stacks : copie `doc-kit/check-docs.mjs` du skill `decade-portail` dans `scripts/` et ajoute le script npm `docs:check` (html : `node scripts/check-docs.mjs dist/docs` ; nextjs : `node scripts/check-docs.mjs out --prefix /docs` ; react : `node scripts/check-docs.mjs dist --prefix /docs`), appelé à la fin de `npm run check`.
 - `react` : fusionne `mcp/mcp.react.json` du skill `decade-stack-react` dans `.mcp.json` si `outils.storybookMcp` vaut true.
-- `nextjs` : fusionne `mcp/mcp.nextjs.json` (Storybook MCP + Next DevTools MCP) selon `outils`.
-- `outils.chromeDevtoolsMcp` à true : ajoute le serveur `chrome-devtools` (`npx -y chrome-devtools-mcp@latest`) pour diagnostiquer la performance.
+- `nextjs` : fusionne `mcp/mcp.nextjs.json` (Storybook MCP + Next DevTools MCP) selon `outils` ; si `outils.nextDevtoolsMcp` vaut true, installe d’abord le serveur dans le projet, version fixée : `npm i -D --save-exact next-devtools-mcp@0.4.0`.
+- `outils.chromeDevtoolsMcp` à true : installe `npm i -D --save-exact chrome-devtools-mcp@1.10.1`, puis ajoute le serveur `chrome-devtools` (`"command": "npx", "args": ["--no-install", "chrome-devtools-mcp"]`) pour diagnostiquer la performance.
+- Sécurité : aucun serveur MCP n’est lancé par `npx -y` ni en `@latest`. Chaque serveur est une dépendance du projet, version fixée, sous `package-lock.json` ; `--no-install` refuse tout téléchargement au lancement.
 - Affiche ce qui a été ajouté ; ne touche à aucun autre fichier.
 
 Termine par le bloc « 🧭 À toi, pilote » (skill `decade-guide-pilote`) : à faire maintenant, relire `BRIEF.md` (pages retenues comprises) et remplir « Validé par le pilote » ; ensuite /decade-front:next-step.
