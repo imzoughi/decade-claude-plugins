@@ -9,3 +9,6 @@
 7. **Mouvement du catalogue.** Animations issues du catalogue et de ses trois niveaux ; pause sur tout défilement automatique.
 8. **Identité respectée.** Logo, couleurs de marque, polices et ton inchangés sans validation du pilote.
 9. **Documenté.** Chaque composant a son README : usage, variantes, états, accessibilité, animations, exemple.
+
+## Sources et licences
+Où sont les règles et sur quoi elles s’appuient : `REGLES-ET-SOURCES.md` à la racine du dépôt. Licences des projets cités : `THIRD-PARTY-NOTICES.md`.

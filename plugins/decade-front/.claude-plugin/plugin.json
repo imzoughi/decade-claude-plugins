@@ -1,6 +1,6 @@
 {
   "name": "decade-front",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Workflow Decade : Figma de l’agence → audit → Claude Design → maquettes HTML/SCSS/JS ou Next.js. Skills maison, sous-agents spécialisés, garde-fous.",
   "author": {
     "name": "Decade"

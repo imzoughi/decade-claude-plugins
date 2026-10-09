@@ -6,3 +6,4 @@
 - Relu par l’équipe technique Decade avant intégration : règles en Markdown uniquement, aucun script.
 - Mise à jour : récupérer la nouvelle version, relire le diff, monter la version du plugin.
 - Utilisé par : decade-integrateur et decade-controleur-qa, seulement quand la stack est react ou nextjs.
+- Texte de la licence : `LICENSE.md` (à garder avec le dossier).

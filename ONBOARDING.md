@@ -173,10 +173,10 @@ claude mcp add --transport http figma-desktop http://127.0.0.1:3845/mcp
 
 Installe les skills **impeccable** et **ui-ux-pro-max** dans Claude Code **et** dans Claude (Cowork), pour qu’ils servent aussi dans Claude Design. Sans eux, le plugin applique une version courte de leurs règles (skill `decade-ui-ux`).
 
-| Skill | Source à utiliser |
-|---|---|
-| impeccable | dépôt GitHub `pbakaus/impeccable` |
-| ui-ux-pro-max | dépôt GitHub de son auteur (`ui-ux-pro-max-skill`), à confirmer par l’équipe avant la première installation |
+| Skill | Source à utiliser | Licence |
+|---|---|---|
+| impeccable | https://github.com/pbakaus/impeccable | Apache-2.0 |
+| ui-ux-pro-max | https://github.com/nextlevelbuilder/ui-ux-pro-max-skill (installeur npm `ui-ux-pro-max-cli`) | MIT |
 
 > **Sécurité.** Ce sont des skills tiers : un skill peut contenir des scripts que Claude exécutera. Installe-les uniquement depuis ces dépôts, jamais depuis une copie ou un site de partage, à une version précise (tag ou commit noté par l’équipe), et relis le contenu avant la première installation et à chaque mise à jour. En cas de doute, ne les installe pas : le plugin fonctionne sans.
 

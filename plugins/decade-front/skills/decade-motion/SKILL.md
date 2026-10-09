@@ -32,3 +32,7 @@ Règle : on dégrade avec douceur, on ne coupe pas tout (approche du skill *acce
 
 ## 5. Vérification
 Le contrôleur QA rejoue les tests d’interaction une seconde fois avec le mode réduit émulé (`reducedMotion: "reduce"` dans Playwright) et vérifie : niveau 1 absent, niveau 2 en fondu court, niveau 3 présent, aucun blocage.
+
+## Sources et licences
+Où sont les règles et sur quoi elles s’appuient : `REGLES-ET-SOURCES.md` à la racine du dépôt. Licences des projets cités : `THIRD-PARTY-NOTICES.md`.
+- Les trois niveaux de mouvement réduit reprennent l’approche de motion-skills (iart-ai, MIT) https://github.com/iart-ai/motion-skills, reformulée ; critères WCAG 2.2.2 et 2.3.3.

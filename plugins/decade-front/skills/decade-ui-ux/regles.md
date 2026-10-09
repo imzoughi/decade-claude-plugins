@@ -10,3 +10,7 @@
 - Formulaires : labels visibles, erreurs sous le champ, aide contextuelle.
 - Mobile : cibles ≥ 44 px, pas de débordement horizontal, contenus prioritaires en premier.
 - À éviter : ombres lourdes, dégradés gratuits, texte en majuscules de style, icônes de sources mélangées, emojis.
+
+## Sources et licences
+Où sont les règles et sur quoi elles s’appuient : `REGLES-ET-SOURCES.md` à la racine du dépôt. Licences des projets cités : `THIRD-PARTY-NOTICES.md`.
+- Inspiré de impeccable (Apache-2.0) et UI/UX Pro Max (MIT), reformulé ; voir `SKILL.md`.

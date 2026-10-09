@@ -48,3 +48,7 @@ L’affinage garde l’identité de marque (logo, couleurs, polices, ton). Il co
 ## Format des retours agence
 `[Bloquant|Majeur|Mineur] Écran / composant — problème constaté — attendu.`
 Exemple : `[Majeur] Fiche produit / bouton ajouter — pas d’état désactivé ni chargement — ajouter les variantes disabled et loading.`
+
+## Sources et licences
+Où sont les règles et sur quoi elles s’appuient : `REGLES-ET-SOURCES.md` à la racine du dépôt. Licences des projets cités : `THIRD-PARTY-NOTICES.md`.
+- Grille A : critères maison et WCAG 2.2 ; grille B : règles d’impeccable et d’UI/UX Pro Max reformulées, WCAG 2.2 et heuristiques de Nielsen. Le détail critère par critère est dans `REGLES-ET-SOURCES.md`.

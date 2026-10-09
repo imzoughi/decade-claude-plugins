@@ -31,3 +31,7 @@ Largeurs : `decade.config.json` → `breakpoints`.
 
 ## Rapport
 `qa/qa-<cible>.md` : tableau (contrôle, statut, détail), puis ce qui reste rouge. Le contrôleur ne corrige jamais : il décrit l’écart et la correction attendue.
+
+## Sources et licences
+Où sont les règles et sur quoi elles s’appuient : `REGLES-ET-SOURCES.md` à la racine du dépôt. Licences des projets cités : `THIRD-PARTY-NOTICES.md`.
+- Outils : axe-core (MPL-2.0), Playwright (Apache-2.0), Lighthouse CI (Apache-2.0) ; seuils LCP et CLS = Core Web Vitals, autres seuils = choix du plugin.

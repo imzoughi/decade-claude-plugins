@@ -136,7 +136,8 @@ Guide pas à pas pour les équipes : [ONBOARDING.md](ONBOARDING.md).
 - Aucun serveur MCP n’est lancé par `npx -y` ni en `@latest` : chaque serveur est une dépendance du projet, version fixée, sous `package-lock.json`, lancé avec `npx --no-install`.
 - Les hooks ne font aucun appel réseau. Lighthouse CI (`@lhci/cli`, dépendance du projet) garde ses rapports en local.
 - Le portail publié sur GitHub Pages est **public**, même si le dépôt est privé : accord du client, ou hébergement protégé.
-- Skills tiers (impeccable, ui-ux-pro-max) : uniquement depuis leur dépôt officiel, à une version précise, relus avant installation (voir ONBOARDING 1.5).
+- Skills tiers ([impeccable](https://github.com/pbakaus/impeccable), [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)) : uniquement depuis leur dépôt officiel, à une version précise, relus avant installation (voir ONBOARDING 1.5).
+- Règles et sources : [`REGLES-ET-SOURCES.md`](REGLES-ET-SOURCES.md) (où est chaque règle, sur quelle norme elle s’appuie). Composants tiers et licences : [`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md).
 - Télémétrie de Claude Code : `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1` si la politique interne l’exige.
 
 ## Installation
