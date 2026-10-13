@@ -16,6 +16,7 @@ Chemins relatifs à `plugins/decade-front/`.
 | Seuils de performance (Lighthouse CI) | `skills/decade-qa/perf/lighthouserc.cjs`, réglages `performance` de `decade.config.json` | `npm run perf` |
 | Règles React / Next.js (copiées de Vercel) | `skills/vercel-react-best-practices/`, `skills/vercel-composition-patterns/` | intégrateur, contrôleur QA (stacks react et nextjs) |
 | Conventions par stack | `skills/decade-stack-html/`, `skills/decade-stack-react/`, `skills/decade-stack-nextjs/` | intégrateur |
+| Grille de complexité et formule de chiffrage | `skills/decade-chiffrage/SKILL.md`, `skills/decade-chiffrage/parametres.json` | agent `decade-auditeur`, commande `/audit` |
 | Garde-fous (commandes et fichiers interdits) | `hooks/guard-bash.js`, `hooks/guard-files.js`, `project-template/.claude/settings.json` (racine du dépôt) | à chaque action de Claude |
 
 ## Sur quoi elles s’appuient

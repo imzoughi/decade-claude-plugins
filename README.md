@@ -120,6 +120,9 @@ Réglable par projet dans `decade.config.json` → `modeles`. Mesure : hook `log
 
 Guide pas à pas pour les équipes : [ONBOARDING.md](ONBOARDING.md).
 
+## Chiffrage (à l’audit)
+`/decade-front:audit` classe chaque composant et chaque page (S, M, L, XL, grille sur 12 points), puis `skills/decade-chiffrage/chiffrage.mjs` tire 5 000 scénarios et écrit `audit/chiffrage.md` : délai, travail du pilote et travail d’un dev front classique, en P50, **P80 (date d’engagement)** et P90. Les dépendances externes (écrans attendus, validation client) sont annoncées comme des conditions. Paramètres dans `skills/decade-chiffrage/parametres.json`, à recaler après chaque projet.
+
 ## Sécurité : MCP et services utilisés
 
 | Outil | Où | Ce qui passe | Accès |

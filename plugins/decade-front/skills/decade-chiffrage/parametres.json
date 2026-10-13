@@ -1,0 +1,222 @@
+{
+  "_lisezmoi": "Paramètres du chiffrage (skill decade-chiffrage). Trois points [optimiste, probable, pessimiste]. Côté plugin : calés pour que le projet Avion (Next.js, 37 composants, 6 pages, premier projet, Max 20x) donne sa durée mesurée, 4 jours. Côté dev front : hypothèses d’un dev confirmé, à remplacer par vos chiffrages passés. À recaler après chaque projet (SKILL.md, « Recaler »).",
+  "version": "2026-10-13",
+  "dev": {
+    "_unite": "jours de travail d’un dev front confirmé, stack Next.js ou React",
+    "composant": {
+      "S": [
+        0.1,
+        0.12,
+        0.25
+      ],
+      "M": [
+        0.15,
+        0.25,
+        0.45
+      ],
+      "L": [
+        0.3,
+        0.5,
+        0.9
+      ],
+      "XL": [
+        0.6,
+        1.1,
+        2
+      ]
+    },
+    "page": {
+      "S": [
+        0.25,
+        0.4,
+        0.6
+      ],
+      "M": [
+        0.3,
+        0.5,
+        0.8
+      ],
+      "L": [
+        0.5,
+        0.8,
+        1.3
+      ]
+    },
+    "pageAbsente": [
+      0.3,
+      0.6,
+      1
+    ],
+    "miseEnPlace": {
+      "html": [
+        0.5,
+        1,
+        1.5
+      ],
+      "react": [
+        1,
+        1.5,
+        2.5
+      ],
+      "nextjs": [
+        1,
+        1.5,
+        2.5
+      ]
+    },
+    "facteurStack": {
+      "html": 0.8,
+      "react": 1,
+      "nextjs": 1
+    },
+    "qaReprises": 1.15
+  },
+  "plugin": {
+    "_unite": "heures d’agents (machine) et heures de pilote (humain)",
+    "agentComposant": {
+      "S": [
+        0.019,
+        0.031,
+        0.074
+      ],
+      "M": [
+        0.043,
+        0.074,
+        0.186
+      ],
+      "L": [
+        0.093,
+        0.155,
+        0.372
+      ],
+      "XL": [
+        0.186,
+        0.31,
+        0.744
+      ]
+    },
+    "agentPage": {
+      "S": [
+        0.124,
+        0.186,
+        0.372
+      ],
+      "M": [
+        0.155,
+        0.248,
+        0.558
+      ],
+      "L": [
+        0.248,
+        0.434,
+        0.93
+      ]
+    },
+    "agentPageAbsente": [
+      0.124,
+      0.186,
+      0.372
+    ],
+    "agentFixe": [
+      2,
+      2.5,
+      4
+    ],
+    "facteurStack": {
+      "html": 0.85,
+      "react": 1,
+      "nextjs": 1
+    },
+    "piloteRelectureMin": {
+      "S": [
+        1,
+        2,
+        5
+      ],
+      "M": [
+        3,
+        5,
+        10
+      ],
+      "L": [
+        6,
+        10,
+        20
+      ],
+      "XL": [
+        12,
+        20,
+        45
+      ]
+    },
+    "piloteRelecturePageMin": {
+      "S": [
+        10,
+        15,
+        25
+      ],
+      "M": [
+        15,
+        20,
+        40
+      ],
+      "L": [
+        20,
+        30,
+        60
+      ]
+    },
+    "piloteFixeH": {
+      "demarrageAudit": [
+        1,
+        1.5,
+        2.5
+      ],
+      "claudeDesign": [
+        2,
+        3,
+        4.5
+      ],
+      "recette": [
+        1,
+        2,
+        3
+      ],
+      "publication": [
+        0.5,
+        0.75,
+        1.25
+      ],
+      "arbitrageEcarts": [
+        0.5,
+        1,
+        2.5
+      ]
+    }
+  },
+  "calendrier": {
+    "_lisezmoi": "heures d’agents possibles par jour selon l’abonnement (quota) ; heures de pilote par jour sur le projet. Max 20x calé sur Avion ; les autres plans sont des hypothèses à mesurer.",
+    "agentHeuresParJour": {
+      "pro": 2,
+      "max5x": 4,
+      "max20x": 7
+    },
+    "facteurToutOpus": 0.6,
+    "piloteHeuresParJour": 6,
+    "joursOuvresParSemaine": 5
+  },
+  "risques": {
+    "premierProjet": 1.2,
+    "auditA_sous80": 1.1,
+    "affinageUX_heuresPilote": 2,
+    "affinageUX_agent": 1.05,
+    "facteurSystemique": [
+      0.85,
+      1,
+      1.4
+    ],
+    "_facteurSystemique": "erreur commune à tout le projet (sous-estimation générale) : appliqué une fois par tirage, il élargit la fourchette au lieu de la lisser"
+  },
+  "tirages": 5000,
+  "coutJourEuros": 500
+}

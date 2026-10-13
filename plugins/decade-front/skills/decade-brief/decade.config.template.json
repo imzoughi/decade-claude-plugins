@@ -92,5 +92,11 @@
       "publier": 3000000,
       "pilotage": 500000
     }
+  },
+  "chiffrage": {
+    "abonnement": "max20x",
+    "modeles": "table",
+    "premierProjet": true,
+    "coutJourEuros": 500
   }
 }
