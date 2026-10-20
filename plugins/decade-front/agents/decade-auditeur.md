@@ -1,7 +1,7 @@
 ---
 name: decade-auditeur
 description: Audite un Figma d’agence (score A intégrabilité, score B UI/UX, décision go / no-go, retours agence) et, en mode mise à jour, détecte les composants ajoutés ou modifiés et les contrôle avec les règles d’or. À utiliser pour /audit, les re-audits et /sync-figma. Ne modifie jamais le code.
-tools: Read, Glob, Grep, Write, mcp__figma
+tools: Read, Glob, Grep, Write, mcp__figma, mcp__plugin_figma_figma
 model: opus
 skills:
   - decade-audit-figma

@@ -14,7 +14,7 @@ echo "${#TODO[@]} élément(s) à traiter ($SECTION)"
 for item in "${TODO[@]}"; do
   echo "▶ $item"
   claude -p "$CMD $item" --model "$MODEL" --permission-mode acceptEdits \
-    --allowedTools "Read,Write,Edit,Glob,Grep,Agent,Task,Bash(npm run *),Bash(npx playwright *),Bash(npx lhci *),mcp__figma,mcp__storybook,mcp__next-devtools" \
+    --allowedTools "Read,Write,Edit,Glob,Grep,Agent,Task,Bash(npm run *),Bash(npx playwright *),Bash(npx lhci *),mcp__figma,mcp__plugin_figma_figma,mcp__storybook,mcp__next-devtools" \
     --max-turns "$TURNS" --output-format text | tee "workflow/logs/$KIND-$item.log" | tail -3
 done
 echo "Terminé. Reste non coché : $(grep -c '^- \[ \]' "$BACKLOG" || true)"

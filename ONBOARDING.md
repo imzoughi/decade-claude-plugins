@@ -3,6 +3,7 @@
 Guide pas à pas du workflow Decade, de l’installation du poste jusqu’à la livraison du package de maquettes. Il s’adresse au **pilote** : la personne qui conduit le projet, à la fois chef de projet et développeur backend.
 
 > **En une minute**
+> - **Avant tout, les prérequis** (section 1.1) : un abonnement Claude, Node.js, Git avec accès au dépôt du plugin, Google Chrome, et **un compte Figma avec un siège Dev ou Full** relié à Claude Code par le **serveur MCP Figma** (section 1.4). Sans Figma branché, rien ne démarre.
 > - Installation du plugin : section 1.3 (depuis le dépôt GitHub imzoughi/decade-claude-plugins).
 > - Au démarrage : `/decade-front:build-front <lien Figma>` (les commandes portent le préfixe `decade-front:`).
 > - Ensuite, à chaque session : `/decade-front:next-step`. Cette commande dit toujours où on en est, quoi faire, et qui doit valider.
@@ -10,6 +11,19 @@ Guide pas à pas du workflow Decade, de l’installation du poste jusqu’à la 
 > - Le pilote valide à 4 moments : le BRIEF, l’audit, le design system et la recette.
 > - Tu es toujours guidé : chaque commande finit par le bloc **🧭 À toi, pilote**, qui dit quoi faire maintenant et quoi vérifier.
 > - Claude ne pousse jamais sur Git : c’est le pilote qui relit, commit et pousse.
+
+### Démarrage express (30 minutes, une seule fois par poste)
+
+| # | À faire | Commande ou lien | C’est bon si… |
+| --- | --- | --- | --- |
+| 1 | Vérifier les prérequis | tableau 1.1 | toutes les cases sont cochées |
+| 2 | Installer Claude Code | page officielle, puis `claude --version` | une version s’affiche |
+| 3 | Installer le plugin | dans `claude` : `/plugin marketplace add imzoughi/decade-claude-plugins` puis `/plugin install decade-front@decade` | `/plugin` montre **decade-front** sans erreur |
+| 4 | Brancher Figma | dans un terminal : `claude mcp add --scope user --transport http figma https://mcp.figma.com/mcp`, puis dans `claude` : `/mcp` → **figma** → **Authenticate** | `/mcp` affiche **figma · connected** |
+| 5 | Tester Figma | dans `claude` : « Utilise l’outil whoami de Figma » | ton e-mail et un siège **Dev** ou **Full** s’affichent |
+| 6 | Créer le projet | section 2 (copie du modèle), puis `/decade-front:build-front <lien Figma>` | la liste des pages du Figma s’affiche |
+
+Ensuite, une seule commande à retenir : `/decade-front:next-step`.
 
 ---
 
@@ -71,13 +85,20 @@ L’état du projet est lu dans les fichiers du dépôt, pas dans la mémoire de
 
 ### 1.1 Prérequis
 
-| Outil | Version | Vérifier |
-| --- | --- | --- |
-| Node.js | 22 conseillé (20.11 minimum) | `node -v` |
-| Git | récent | `git --version` |
-| VS Code | récent | — |
-| Compte Claude | avec accès à Claude Code et à Claude (Cowork) pour Claude Design | — |
-| Accès Figma | au fichier de l’agence (lecture au minimum) | — |
+À réunir **avant** d’installer quoi que ce soit. Les points 1 à 6 sont obligatoires.
+
+| # | Prérequis | Pourquoi | Comment l’obtenir | Vérifier |
+| --- | --- | --- | --- | --- |
+| 1 | **Abonnement Claude** (Pro au minimum, Max conseillé) | Claude Code fait tourner les agents ; Claude Design crée le design system | claude.ai ; avec Pro, la limite d’usage peut être atteinte sur un projet complet (deux fois sur le projet de démonstration) | `claude` démarre et tu es connecté |
+| 2 | **Accès à Claude Design** | étape 4 du workflow | sur claude.ai, avec le même compte | Claude Design s’ouvre dans le navigateur |
+| 3 | **Node.js 22** (20.11 au minimum) avec npm | les outils du projet (build, tests, Lighthouse, Playwright) | nodejs.org, version LTS | `node -v` et `npm -v` |
+| 4 | **Git** et un **accès en lecture au dépôt** `imzoughi/decade-claude-plugins` | installation du plugin (dépôt privé) | demander l’accès au dépôt ; Git doit savoir s’identifier sur GitHub | `git clone https://github.com/imzoughi/decade-claude-plugins.git` fonctionne |
+| 5 | **Compte Figma avec un siège Dev ou Full**, sur un plan Professional ou plus | le serveur MCP Figma lit les maquettes ; avec un siège View, Collab ou un plan Starter, Figma limite le MCP à **20 appels par mois**, trop peu pour un audit | demander un siège Dev à l’administrateur Figma | dans Figma, menu du compte : type de siège |
+| 6 | **Accès au fichier Figma de l’agence** (lecture au minimum) | l’audit et l’import lisent ce fichier | l’agence t’invite sur le fichier, **avec l’e-mail de ton compte Figma** | le lien s’ouvre dans Figma avec ton compte |
+| 7 | **Google Chrome** | Lighthouse CI mesure la performance avec le Chrome du poste | google.com/chrome | Chrome s’ouvre |
+| 8 | **VS Code** (conseillé) | ouvrir le projet et le terminal intégré | code.visualstudio.com | — |
+
+> Les outils propres au projet (Lighthouse CI, Playwright, axe-core, Storybook…) **ne sont pas** des prérequis : `/decade-front:build-front` les installe dans le projet, à version fixée.
 
 ### 1.2 Installer Claude Code
 
@@ -161,13 +182,32 @@ Les commandes d’un plugin portent le nom du plugin devant : **`/decade-front:b
 
 Dans ce guide, les commandes sont parfois écrites en version courte pour la lisibilité : ajoute `decade-front:` devant.
 
-### 1.4 Brancher Figma
+### 1.4 Brancher Figma (obligatoire)
+
+Claude Code lit les maquettes grâce au **serveur MCP Figma** (le serveur distant officiel de Figma). À faire **une fois par poste**.
+
+**1. Déclarer le serveur**, dans un terminal (pas dans `claude`) :
 
 ```bash
-claude plugin install figma@claude-plugins-official
-# ou, avec l’application Figma desktop en mode développeur :
-claude mcp add --transport http figma-desktop http://127.0.0.1:3845/mcp
+claude mcp add --scope user --transport http figma https://mcp.figma.com/mcp
 ```
+
+`--scope user` le rend disponible dans tous tes projets. Garde bien le nom **`figma`** : le plugin l’attend sous ce nom.
+
+**2. Se connecter à Figma.** Lance `claude`, tape `/mcp`, choisis **figma**, puis **Authenticate**. Une page Figma s’ouvre dans le navigateur : clique **Allow access**, avec le compte qui a le siège Dev ou Full. De retour dans Claude Code : « Authentication successful. Connected to figma ».
+
+**3. Tester.** Dans `claude`, écris : « Utilise l’outil whoami de Figma ». Tu dois voir ton e-mail, ton plan et ton siège. Puis colle le lien du fichier de l’agence et demande : « Liste les pages de ce fichier Figma ». Si les pages s’affichent, Figma est prêt.
+
+> **Autres façons de brancher Figma** (déjà prises en charge par le plugin) :
+> - le plugin officiel Figma : `claude plugin install figma@claude-plugins-official`, puis `/plugin` → **Installed** → **figma** → se connecter ;
+> - l’application Figma desktop, en mode développeur, avec le serveur local activé : `claude mcp add --scope user --transport http figma http://127.0.0.1:3845/mcp` (même nom `figma`). L’application doit rester ouverte.
+
+| Problème | Solution |
+| --- | --- |
+| `/mcp` n’affiche pas **figma** | relancer `claude` après la commande `claude mcp add` ; vérifier avec `claude mcp list` |
+| « This Figma file could not be accessed » | le compte affiché par `whoami` n’a pas accès au fichier : demander à l’agence de t’inviter avec cet e-mail ; vérifier que le lien est celui d’un fichier Design |
+| Ça marchait, puis plus rien en milieu d’audit | limite d’appels atteinte (siège View, Collab ou Starter : 20 appels par mois ; siège Dev ou Full sur Professional : 200 par jour) : demander un siège Dev, ou attendre le lendemain |
+| La connexion a expiré | `/mcp` → **figma** → **Authenticate** à nouveau |
 
 ### 1.5 Skills UI/UX (conseillés)
 
@@ -182,11 +222,14 @@ Installe les skills **impeccable** et **ui-ux-pro-max** dans Claude Code **et** 
 
 ### 1.6 Vérification rapide
 
+- [ ] Les prérequis 1 à 6 du tableau 1.1 sont réunis (abonnement Claude, Claude Design, Node, accès au dépôt, siège Figma Dev ou Full, accès au fichier de l’agence)
 - [ ] `node -v` affiche 20.11 ou plus (22 conseillé). Si une vieille version sort, c’est un autre Node qui passe en premier dans le PATH : corrige-le avant de continuer.
 - [ ] `claude --version` répond
 - [ ] `/plugin` liste **decade-front**, sans erreur, avec la dernière version
 - [ ] Taper `/decade` propose les commandes `decade-front:…`
-- [ ] Claude Code peut lire un fichier Figma (le plus simple : `/decade-front:build-front` le vérifie à l’étape 2.3)
+- [ ] `/mcp` affiche **figma · connected**
+- [ ] « Utilise l’outil whoami de Figma » affiche ton e-mail et un siège **Dev** ou **Full**
+- [ ] Les pages du fichier de l’agence s’affichent quand tu colles son lien (`/decade-front:build-front` le revérifie à l’étape 2.3)
 
 ---
 
@@ -233,10 +276,10 @@ Si cette ligne n’apparaît pas, le plugin n’est pas actif dans ce dossier : 
 
 `/build-front` :
 
-1. vérifie l’installation (Node, accès au Figma, plugin, skills conseillés) et te dit quoi corriger ;
+1. vérifie l’installation (Node, serveur Figma et ton siège, accès au fichier, plugin, Chrome, skills conseillés) et te dit quoi corriger, avec la section de ce guide à suivre ;
 2. crée `decade.config.json` avec le lien Figma ;
 3. lance le cadrage, décrit à l’étape 1 ci-dessous ;
-4. installe les outils propres à la stack, dans le projet et à version fixée : Lighthouse CI (`@lhci/cli`) pour la performance, et Storybook MCP et Next DevTools MCP pour React et Next.js. Aucun serveur MCP n’est téléchargé au lancement (`npx --no-install`).
+4. installe les outils du projet, à version fixée : Lighthouse CI (`@lhci/cli`) pour la performance, Playwright et axe-core pour les captures et l’accessibilité (avec le navigateur de test, téléchargé une fois), et Storybook MCP et Next DevTools MCP pour React et Next.js. Aucun serveur MCP n’est téléchargé au lancement (`npx --no-install`).
 
 > `/build-front` ne sert qu’une fois. Sur un projet déjà démarré, il ne refait rien et te renvoie vers `/next-step`.
 
@@ -581,7 +624,12 @@ Chaque fin de sous-agent est tracée dans `workflow/logs/agents.jsonl`.
 
 | Symptôme | Cause probable | Solution |
 | --- | --- | --- |
-| `/build-front` : « Figma non joignable » | serveur MCP Figma absent ou fichier non partagé | refaire l’étape 1.4 ; vérifier l’accès au fichier |
+| `/build-front` : « Figma non joignable » | serveur MCP Figma absent ou non connecté | section 1.4 : `claude mcp add … figma …`, puis `/mcp` → **figma** → **Authenticate** |
+| « This Figma file could not be accessed » | ton compte Figma n’a pas accès au fichier, ou lien qui n’est pas un fichier Design | « Utilise l’outil whoami de Figma » pour voir le compte connecté ; demander à l’agence de l’inviter |
+| Figma répond, puis s’arrête en plein audit | limite d’appels Figma atteinte (siège View, Collab ou Starter) | demander un siège Dev ou Full (section 1.1, point 5) |
+| `/build-front` : siège View ou Collab signalé | pas de siège Dev ou Full | demander un siège Dev avant de lancer l’audit |
+| Lighthouse : « Chrome not found » | Google Chrome absent du poste | installer Google Chrome, relancer `npm run perf` |
+| Playwright : « Executable doesn’t exist » | navigateur de test non téléchargé | `npx playwright install chromium` dans le projet |
 | `/build-front` : « Projet déjà démarré » | la config et le BRIEF existent | utiliser `/next-step` |
 | `/next-step` : « Nouveau projet » | pas de config ni de BRIEF | lancer `/build-front <lien Figma>` |
 | `/import-ds` : « Stack non choisie » | champ `stack` vide | choisir la stack (html, react, nextjs), remplir la config, relancer |
@@ -603,9 +651,10 @@ Chaque fin de sous-agent est tracée dans `workflow/logs/agents.jsonl`.
 
 ### Avant de démarrer
 
-- [ ] Poste installé (section 1)
+- [ ] Prérequis réunis (section 1.1), dont un siège Figma Dev ou Full
+- [ ] Poste installé (section 1) : `/plugin` montre decade-front, `/mcp` montre figma connecté
 - [ ] Dépôt créé et modèle copié (section 2)
-- [ ] Accès au Figma de l’agence
+- [ ] Accès au Figma de l’agence, testé avec ton compte (les pages s’affichent)
 - [ ] Réponses du cadrage prêtes (pages, stack, hébergement, contraintes du client)
 
 ### Avant de livrer
