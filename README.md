@@ -127,7 +127,7 @@ Guide pas à pas pour les équipes : [ONBOARDING.md](ONBOARDING.md).
 
 | Outil | Où | Ce qui passe | Accès |
 |---|---|---|---|
-| MCP Figma (plugin officiel, ou app desktop `127.0.0.1:3845`) | en ligne (ou local) | le fichier Figma du client, avec le compte Figma du pilote | autorisé sans confirmation |
+| MCP Figma (serveur distant `mcp.figma.com/mcp`, plugin officiel, ou app desktop `127.0.0.1:3845`) | en ligne (ou local) | le fichier Figma du client, avec le compte Figma du pilote | autorisé sans confirmation |
 | MCP Storybook | local (`localhost:6006`) | composants du projet | autorisé |
 | MCP Next DevTools | local, dépendance du projet (`next-devtools-mcp`, version fixée) | erreurs de build et d’hydratation | autorisé |
 | MCP Chrome DevTools | local, dépendance du projet (`chrome-devtools-mcp`, version fixée), désactivé par défaut | traces de performance | confirmation |
@@ -144,7 +144,17 @@ Guide pas à pas pour les équipes : [ONBOARDING.md](ONBOARDING.md).
 - Télémétrie de Claude Code : `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1` si la politique interne l’exige.
 
 ## Installation
-Pas à pas complet (Windows compris) : [ONBOARDING.md](ONBOARDING.md), sections 1.3 et 2.2.
+Pas à pas complet (Windows compris) : [ONBOARDING.md](ONBOARDING.md), « Démarrage express » puis sections 1.1 à 1.4.
+
+**Prérequis** (détail : ONBOARDING, section 1.1) :
+- abonnement Claude (Pro au minimum, Max conseillé) avec Claude Code et Claude Design ;
+- Node.js 22 (20.11 au minimum), Git, accès en lecture à ce dépôt, Google Chrome ;
+- **compte Figma avec un siège Dev ou Full** (plan Professional ou plus ; sinon Figma limite le MCP à 20 appels par mois) et accès au fichier Figma de l’agence ;
+- **serveur MCP Figma branché, une fois par poste**, sous le nom `figma` :
+  ```text
+  claude mcp add --scope user --transport http figma https://mcp.figma.com/mcp
+  ```
+  puis dans `claude` : `/mcp` → figma → Authenticate. Test : « Utilise l’outil whoami de Figma ».
 
 Une fois par poste, depuis le dépôt [imzoughi/decade-claude-plugins](https://github.com/imzoughi/decade-claude-plugins) — dans Claude Code, une commande à la fois :
 ```text
@@ -158,9 +168,8 @@ Les projets créés depuis `project-template/` déclarent ce dépôt (`extraKnow
 
 Par projet (10 minutes) :
 1. Copier le contenu de `project-template/` à la racine du projet.
-2. Brancher Figma : `claude plugin install figma@claude-plugins-official`.
-3. Lancer `claude` : la ligne `🧭 Nouveau projet…` confirme que le plugin est actif.
-4. `/decade-front:build-front <lien Figma>` pour démarrer, puis `/decade-front:next-step` à chaque étape.
+2. Lancer `claude` : la ligne `🧭 Nouveau projet…` confirme que le plugin est actif.
+3. `/decade-front:build-front <lien Figma>` pour démarrer (il revérifie Figma, ton siège et l’accès au fichier), puis `/decade-front:next-step` à chaque étape.
 
 Mettre à jour : remplacer le dossier par le nouveau zip, `/plugin marketplace update decade`, relancer `claude`. La version est montée à chaque livraison (sinon Claude Code garde l’ancienne copie en cache).
 

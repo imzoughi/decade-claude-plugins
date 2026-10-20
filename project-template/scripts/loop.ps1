@@ -15,7 +15,7 @@ Write-Host "$($todo.Count) élément(s) à traiter ($section)"
 foreach ($item in $todo) {
   Write-Host "▶ $item"
   claude -p "$cmd $item" --model $model --permission-mode acceptEdits `
-    --allowedTools "Read,Write,Edit,Glob,Grep,Agent,Task,Bash(npm run *),Bash(npx playwright *),Bash(npx lhci *),mcp__figma,mcp__storybook,mcp__next-devtools" `
+    --allowedTools "Read,Write,Edit,Glob,Grep,Agent,Task,Bash(npm run *),Bash(npx playwright *),Bash(npx lhci *),mcp__figma,mcp__plugin_figma_figma,mcp__storybook,mcp__next-devtools" `
     --max-turns $turns --output-format text | Tee-Object -FilePath "workflow/logs/$Kind-$item.log" | Select-Object -Last 3
 }
 Write-Host "🧭 À toi, pilote : ouvre Claude Code et lance /decade-front:next-step (bilan, blocages, prochaine action)."

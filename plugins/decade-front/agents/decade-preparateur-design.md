@@ -1,7 +1,7 @@
 ---
 name: decade-preparateur-design
 description: Prépare le pack pour Claude Design (tokens, assets, captures, inventaire, prompts prêts à coller) à partir du Figma et de l’audit. À utiliser pour /pack-design.
-tools: Read, Glob, Grep, Write, Bash(zip *), Bash(npx *), mcp__figma
+tools: Read, Glob, Grep, Write, Bash(zip *), Bash(npx *), mcp__figma, mcp__plugin_figma_figma
 model: sonnet
 skills:
   - decade-claude-design

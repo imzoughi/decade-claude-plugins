@@ -16,16 +16,19 @@
     "allow": [
       "Bash(npm run *)",
       "Bash(npx playwright *)",
+      "Bash(npx --no-install *)",
       "Bash(git status)",
       "Bash(git diff *)",
       "Bash(scripts/*)",
       "Bash(node *hooks/etat.js)",
       "Bash(node *hooks/conso.js)",
       "mcp__figma",
+      "mcp__plugin_figma_figma",
       "Bash(npx lhci *)",
       "Bash(npx storybook *)",
       "mcp__storybook",
-      "mcp__next-devtools"
+      "mcp__next-devtools",
+      "Bash(node *chiffrage.mjs*)"
     ],
     "deny": [
       "Bash(git push *)",
