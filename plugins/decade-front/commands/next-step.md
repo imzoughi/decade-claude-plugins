@@ -29,5 +29,6 @@ Lance `node "${CLAUDE_PLUGIN_ROOT}/hooks/etat.js"`. Il renvoie l’étape, l’a
 Prends les points « À vérifier » dans la fiche de l’étape (`fiches.md`). En étapes 5 et 6, ajoute l’avancement (terminés sur total). S’il y a des blocages, ajoute la ligne « ⚠ Bloqué ».
 
 ## 3. Boucles (étapes 5 et 6)
-Stack react ou nextjs : rappelle de lancer d’abord `npm run storybook` (et `npm run dev` pour Next.js) dans un autre terminal, pour que Storybook MCP et Next DevTools MCP répondent.
+Si `workflow/STOP-BOUCLE.md` existe, la dernière boucle s’est arrêtée sur un verdict BLOQUÉ : mets son contenu en ligne « ⚠ Bloqué » et l’action à faire en « À faire maintenant » (le script le supprime au prochain lancement).
+Stack react ou nextjs : rappelle de lancer d’abord `npm run storybook` (et `npm run dev` pour Next.js) dans un autre terminal ; sans Storybook, le script de boucle refuse de démarrer.
 Demande « Je lance la boucle ? (oui / non) ». Sur « oui », lance `scripts/loop.sh composants` ou `scripts/loop.sh pages` (Windows : `scripts/loop.ps1 composants` ou `pages`), puis termine par le bloc : terminés, bloqués, prochaine action.

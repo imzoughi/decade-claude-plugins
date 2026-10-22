@@ -420,7 +420,7 @@ Pas à pas (c’est exactement ce que contient `design/pack/GUIDE-ETAPE-4.md`, �
 | **Sorties** | tokens, styles et composants dans le code · portail et doc à jour · rapports `qa/` · backlog coché pour les composants verts |
 | **Durée type** | 1 à 2 jours |
 
-1. **Stack react ou nextjs uniquement** : dans un second terminal, lance `npm run storybook`, et aussi `npm run dev` pour Next.js. Storybook MCP et Next DevTools MCP en ont besoin.
+1. **Stack react ou nextjs uniquement** : dans un second terminal, lance `npm run storybook` et attends « Storybook started » ; pour Next.js, lance aussi `npm run dev` dans un troisième. Laisse-les ouverts pendant toute la boucle : sans Storybook, le script refuse de démarrer, car le contrôleur QA ne pourrait rien tester.
 2. `/import-ds` : il refuse de démarrer si la stack n’est pas choisie.
 3. `/next-step` propose ensuite de lancer la boucle. Réponds « oui », ou lance-la toi-même :
 
@@ -429,7 +429,9 @@ scripts/loop.sh composants                                        # macOS, Linux
 powershell -ExecutionPolicy Bypass -File scripts/loop.ps1 composants   # Windows
 ```
 
-**Ce que fait la boucle :** elle prend chaque composant non coché du backlog, un par un. Pour chacun, l’**intégrateur** code, puis le **contrôleur QA** vérifie : tests, captures, accessibilité, règles d’or. Seul un verdict VERT coche la case. Après 3 tours ratés, l’écart est noté dans `workflow/blocages.md` et la boucle passe au suivant. Si tu relances la boucle, elle reprend là où elle s’était arrêtée.
+**Ce que fait la boucle :** elle prend chaque composant non coché du backlog, un par un. Pour chacun, l’**intégrateur** code, puis le **contrôleur QA** vérifie : typecheck, lint, chaque story jouée comme un test (`npm run test:stories` : rendu, clavier, accessibilité, débordement, clair et sombre), règles d’or. Seul un verdict VERT coche la case, et un VERT exige que chaque contrôle ait réellement tourné. Après 3 tours ratés, l’écart est noté dans `workflow/blocages.md` et la boucle passe au suivant.
+
+Si un contrôle ne peut pas tourner (Storybook arrêté, commande refusée), le verdict est **BLOQUÉ** : la boucle s’arrête tout de suite au lieu de consommer des tours, et `workflow/STOP-BOUCLE.md` dit quoi faire. Règle le problème, puis relance : la boucle reprend là où elle s’était arrêtée.
 
 **Ton rôle :** relis les diffs et les captures par lots, puis commit.
 
@@ -634,6 +636,8 @@ Chaque fin de sous-agent est tracée dans `workflow/logs/agents.jsonl`.
 | `/next-step` : « Nouveau projet » | pas de config ni de BRIEF | lancer `/build-front <lien Figma>` |
 | `/import-ds` : « Stack non choisie » | champ `stack` vide | choisir la stack (html, react, nextjs), remplir la config, relancer |
 | Storybook MCP ne répond pas (react, nextjs) | Storybook non lancé, ou version < 10.3 | `npm run storybook` dans un second terminal ; sinon, la boucle continue sans lui et le note |
+| « ⛔ Storybook ne répond pas » au lancement de la boucle | Storybook arrêté | `npm run storybook` dans un autre terminal, attendre « Storybook started », relancer la boucle |
+| « ⛔ Boucle arrêtée … BLOQUÉ » | un contrôle n’a pas pu tourner (commande refusée, script manquant) | lire `workflow/STOP-BOUCLE.md`, faire l’action indiquée, relancer la boucle |
 | Next DevTools MCP muet (nextjs) | serveur de développement arrêté, ou Next.js < 16 | `npm run dev` dans un second terminal |
 | La boucle s’arrête sur un composant | 3 tours ratés | lire `workflow/blocages.md`, corriger dans Claude Design si c’est visuel, relancer la boucle |
 | Performance rouge sur une page | image trop lourde, JavaScript trop gros, mise en page instable | demander à Claude « diagnostique la performance de <page> » (Chrome DevTools MCP si activé) |
