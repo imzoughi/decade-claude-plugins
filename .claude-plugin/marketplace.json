@@ -1,13 +1,18 @@
 {
-  "name": "decade",
-  "owner": { "name": "Decade", "email": "tech@decade.fr" },
-  "metadata": { "description": "Skills, sous-agents et garde-fous Claude Code maison de Decade" },
+  "name": "decade-beta",
+  "owner": {
+    "name": "Decade",
+    "email": "tech@decade.fr"
+  },
+  "metadata": {
+    "description": "BÊTA (branche beta/stacks) — ne pas installer sur un projet client. Skills, sous-agents et garde-fous Claude Code maison de Decade"
+  },
   "plugins": [
     {
       "name": "decade-front",
       "source": "./plugins/decade-front",
       "description": "Workflow Figma → Claude Design → maquettes front (HTML/SCSS/JS ou Next.js), démarré par /build-front, piloté par /next-step",
-      "version": "1.8.1",
+      "version": "1.9.0-beta.1",
       "category": "development"
     }
   ]
