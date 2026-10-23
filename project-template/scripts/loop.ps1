@@ -1,4 +1,4 @@
-# Boucle Decade (Windows) : un appel Claude Code isolé par élément non coché du backlog.
+﻿# Boucle Decade (Windows) : un appel Claude Code isolé par élément non coché du backlog.
 # Usage : ./scripts/loop.ps1 composants|pages
 param([string]$Kind = "composants")
 $cfg = Get-Content decade.config.json -Raw -Encoding UTF8 | ConvertFrom-Json
