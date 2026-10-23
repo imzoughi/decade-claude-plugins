@@ -4,6 +4,7 @@
 //
 //   npm run test:stories                    toutes les stories
 //   npm run test:stories -- -g "Drawer"     les stories d'un composant (filtre sur le titre)
+//   Windows PowerShell : npx playwright test tests/stories.spec.ts -g "Drawer"  (PowerShell avale le « -- » de npm)
 //
 // Storybook doit tourner (npm run storybook). Sinon le test échoue tout de suite avec « STORYBOOK INJOIGNABLE » :
 // le contrôleur QA rend alors le verdict BLOQUÉ, jamais VERT.
@@ -11,7 +12,8 @@ import { test, expect, type Page } from '@playwright/test';
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 
-test.describe.configure({ mode: 'parallel' });
+// 90 s par test : au premier passage, Storybook (Vite) compile chaque story à la demande.
+test.describe.configure({ mode: 'parallel', timeout: 90_000 });
 
 const SB = process.env.STORYBOOK_URL ?? 'http://localhost:6006';
 
@@ -81,10 +83,10 @@ async function jouer(page: Page, id: string, largeur: number, theme: string) {
   });
   await page.goto(`${SB}/iframe.html?id=${encodeURIComponent(id)}&viewMode=story&globals=theme:${theme}`);
   const fini = await page
-    .waitForFunction(() => (window as any).__decade?.evenements.some((e: [string]) => e[0] === 'storyFinished'), null, { timeout: 30000 })
+    .waitForFunction(() => (window as any).__decade?.evenements.some((e: [string]) => e[0] === 'storyFinished'), null, { timeout: 60_000 })
     .then(() => true, () => false);
   const evenements: [string, any][] = await page.evaluate(() => (window as any).__decade?.evenements ?? []);
-  if (!fini) problemes.push('la story ne s’est pas terminée en 30 s (rendu bloqué ou fonction play qui attend)');
+  if (!fini) problemes.push('la story ne s’est pas terminée en 60 s (rendu bloqué ou fonction play qui attend)');
   for (const [nom, d] of evenements) {
     if (nom === 'playFunctionThrewException') problemes.push(`fonction play en échec : ${d?.message ?? d}`);
     if (nom === 'storyThrewException' || nom === 'storyErrored') problemes.push(`rendu en échec : ${d?.message ?? d?.title ?? d}`);
